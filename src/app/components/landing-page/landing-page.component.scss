@@ -1,0 +1,89 @@
+.landing-page {
+  font-family: Arial, sans-serif;
+
+  .hero {
+    background-color: #f7f7f7;
+    padding: 60px 20px;
+    text-align: center;
+
+    .hero-text {
+      h1 {
+        font-size: 36px;
+        margin-bottom: 20px;
+      }
+      p {
+        font-size: 18px;
+        margin-bottom: 30px;
+      }
+      .btn-primary {
+        background-color: #007bff;
+        color: white;
+        padding: 15px 30px;
+        font-size: 18px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .best-offers, .product-catalog, .ai-recommendation {
+    padding: 40px 20px;
+    text-align: center;
+
+    h2 {
+      font-size: 30px;
+      margin-bottom: 30px;
+    }
+
+    .offers-list, .catalog-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+
+      .offer-item, .catalog-item {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+
+        img {
+          width: 100%;
+          height: auto;
+          border-radius: 8px;
+        }
+
+        h3 {
+          font-size: 20px;
+          margin: 10px 0;
+        }
+
+        .price {
+          font-size: 18px;
+          color: #007bff;
+          font-weight: bold;
+        }
+
+        .btn-secondary {
+          background-color: #28a745;
+          color: white;
+          padding: 10px 20px;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+        }
+      }
+    }
+
+    .btn-primary {
+      background-color: #28a745;
+      color: white;
+      padding: 15px 30px;
+      font-size: 18px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  }
+}

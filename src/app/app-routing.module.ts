@@ -1,28 +1,33 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from './components/layout/layout.component';
+import { LandingPageComponent } from './components/landing-page/landing-page.component'; // Import the LandingPageComponent
+import { SingleProductComponent } from './components/single-product/single-product.component';
+import { CartComponent } from './components/./cart/cart.component';
+import { CheckoutComponent } from './components/./checkout/checkout.component';
+
+
+const routes: Routes = [
+  {
+    path: '',
+    component: LayoutComponent,
+    children: [
+      {
+        path: '',
+        component: LandingPageComponent,
+      },
+      { path: 'product/:id', component: SingleProductComponent },
+
+      { path: 'cart', component: CartComponent },
+      { path: 'checkout', component: CheckoutComponent },
+
+    ],
+  },
+  { path: '**', redirectTo: '/notfound' },
+];
 
 @NgModule({
-  imports: [
-      RouterModule.forRoot([
-          {
-              path: '', component: LayoutComponent,
-              children: [
-                  { path: '', loadChildren: () => import('./features/home/home.module').then(m => m.HomeModule) },
-                  // { path: 'uikit', loadChildren: () => import('./demo/components/uikit/uikit.module').then(m => m.UIkitModule) },
-                  // { path: 'utilities', loadChildren: () => import('./demo/components/utilities/utilities.module').then(m => m.UtilitiesModule) },
-                  // { path: 'documentation', loadChildren: () => import('./demo/components/documentation/documentation.module').then(m => m.DocumentationModule) },
-                  // { path: 'blocks', loadChildren: () => import('./demo/components/primeblocks/primeblocks.module').then(m => m.PrimeBlocksModule) },
-                  // { path: 'pages', loadChildren: () => import('./demo/components/pages/pages.module').then(m => m.PagesModule) }
-              ]
-          },
-          // { path: 'auth', loadChildren: () => import('./demo/components/auth/auth.module').then(m => m.AuthModule) },
-          // { path: 'landing', loadChildren: () => import('./demo/components/landing/landing.module').then(m => m.LandingModule) },
-          //{ path: 'notfound', component: PageNotFoundComponent },
-          { path: '**', redirectTo: '/notfound' },
-      ], { scrollPositionRestoration: 'enabled', anchorScrolling: 'enabled', onSameUrlNavigation: 'reload' })
-  ],
-  exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule],
 })
-export class AppRoutingModule {
-}
+export class AppRoutingModule {}

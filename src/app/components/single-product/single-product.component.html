@@ -1,0 +1,46 @@
+<div class="single-product">
+    <!-- Product Details Section -->
+    <section class="product-details">
+      <div class="product-image">
+        <img [src]="product.image" alt="{{ product.name }}" />
+      </div>
+      <div class="product-info">
+        <h1>{{ product.name }}</h1>
+        <p class="product-description">{{ product.description }}</p>
+        <div class="product-price">
+          <span>{{ product.price }} €</span>
+        </div>
+        <div class="product-specs">
+          <h3>Caractéristiques :</h3>
+          <ul>
+            <li><strong>RAM:</strong> {{ product.specifications.ram }}</li>
+            <li><strong>Processeur:</strong> {{ product.specifications.processor }}</li>
+            <li><strong>Stockage:</strong> {{ product.specifications.storage }}</li>
+            <li><strong>Batterie:</strong> {{ product.specifications.battery }}</li>
+          </ul>
+        </div>
+        <div class="quantity-selector">
+            <button (click)="decreaseQuantity()">-</button>
+            <input type="text" [value]="quantity" readonly />
+            <button (click)="increaseQuantity()">+</button>
+          </div>
+        <div class="add-to-cart">
+          <button class="btn-primary" (click)="addToCart()">Ajouter au panier</button>
+        </div>
+      </div>
+    </section>
+  
+    <!-- Related Products Section -->
+    <section class="related-products">
+      <h2>Produits similaires</h2>
+      <div class="product-list">
+        <div class="product-item" *ngFor="let relatedProduct of relatedProducts">
+          <img [src]="relatedProduct.image" alt="Related product" />
+          <h3>{{ relatedProduct.name }}</h3>
+          <p>{{ relatedProduct.price }} €</p>
+          <!-- <button class="btn-secondary" (click)="viewProduct(relatedProduct.id)">Voir</button> -->
+        </div>
+      </div>
+    </section>
+  </div>
+  

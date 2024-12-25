@@ -1,0 +1,44 @@
+<div class="landing-page">
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Bienvenue sur notre site de vente de téléphones et accessoires</h1>
+      <p>Découvrez les meilleures offres et trouvez le téléphone idéal grâce à notre recommandation IA.</p>
+      <button class="btn-primary">Commencer</button>
+    </div>
+  </section>
+
+  <!-- Best Offers Section -->
+  <section class="best-offers">
+    <h2>Nos meilleures offres</h2>
+    <div class="offers-list">
+      <div class="offer-item" *ngFor="let offer of bestOffers">
+        <img [src]="offer.image" alt="Phone Image" class="offer-image" />
+        <h3>{{ offer.name }}</h3>
+        <p>{{ offer.description }}</p>
+        <span class="price">{{ offer.price }} €</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Catalog Section -->
+  <section class="product-catalog">
+    <h2>Catalogue de téléphones et accessoires</h2>
+    <div class="catalog-list">
+      <div class="catalog-item" *ngFor="let product of products">
+        <img [src]="product.image" alt="Product Image" class="product-image" />
+        <h3>{{ product.name }}</h3>
+        <p>{{ product.description }}</p>
+        <span class="price">{{ product.price }} €</span>
+        <button class="btn-secondary">Voir plus</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI Recommendation Section -->
+  <section class="ai-recommendation">
+    <h2>Besoin d'aide pour choisir ?</h2>
+    <p>Répondez à quelques questions et laissez notre IA vous recommander le téléphone parfait pour vous.</p>
+    <button class="btn-primary">Commencer avec IA</button>
+  </section>
+</div>

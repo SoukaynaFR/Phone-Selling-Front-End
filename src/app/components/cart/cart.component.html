@@ -1,0 +1,29 @@
+<div class="cart-container">
+    <h2>Your Cart</h2>
+  
+    <div *ngFor="let item of cartItems" class="cart-item">
+      <img [src]="item.image" alt="{{ item.name }}" class="cart-item-image">
+      <div class="cart-item-details">
+        <span>{{ item.name }}</span>
+        <span>${{ item.price }}</span>
+  
+        <!-- Update quantity -->
+        <div class="quantity">
+          <button (click)="updateQuantity(item.id, item.quantity - 1)" [disabled]="item.quantity <= 1">-</button>
+          <span>{{ item.quantity }}</span>
+          <button (click)="updateQuantity(item.id, item.quantity + 1)">+</button>
+        </div>
+  
+        <!-- Remove item -->
+        <button (click)="removeItemFromCart(item.id)">Remove</button>
+      </div>
+    </div>
+  
+    <div class="total-price">
+      <strong>Total: ${{ totalPrice }}</strong>
+    </div>
+  
+    <!-- Checkout Button -->
+    <button (click)="proceedToCheckout()" pButton pRipple class="p-element p-ripple p-button">Proceed to Checkout</button>
+  </div>
+  

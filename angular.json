@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "e-commerce": {
+    "Phone-Selling": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/e-commerce",
+            "outputPath": "dist/Phone-Selling",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -71,10 +71,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "e-commerce:build:production"
+              "browserTarget": "Phone-Selling:build:production"
             },
             "development": {
-              "browserTarget": "e-commerce:build:development"
+              "browserTarget": "Phone-Selling:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -82,7 +82,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "e-commerce:build"
+            "browserTarget": "Phone-Selling:build"
           }
         },
         "test": {
