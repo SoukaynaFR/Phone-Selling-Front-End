@@ -1,29 +1,59 @@
-<div class="cart-container">
-    <h2>Your Cart</h2>
-  
-    <div *ngFor="let item of cartItems" class="cart-item">
-      <img [src]="item.image" alt="{{ item.name }}" class="cart-item-image">
-      <div class="cart-item-details">
-        <span>{{ item.name }}</span>
-        <span>${{ item.price }}</span>
-  
-        <!-- Update quantity -->
-        <div class="quantity">
-          <button (click)="updateQuantity(item.id, item.quantity - 1)" [disabled]="item.quantity <= 1">-</button>
-          <span>{{ item.quantity }}</span>
-          <button (click)="updateQuantity(item.id, item.quantity + 1)">+</button>
+<main>
+
+  <div class="cart-container">
+    <!-- Cart Items Section -->
+    <div class="cart-items-section">
+      <h2>Mon Panier</h2>
+      <div *ngFor="let item of cartItems" class="cart-item">
+        <div class="cart-item-image">
+          <img [src]="item.image" alt="{{ item.name }}">
         </div>
+        <div class="cart-item-details">
+          <h3>{{ item.name }}</h3>
   
-        <!-- Remove item -->
-        <button (click)="removeItemFromCart(item.id)">Remove</button>
+          <div class="quantity">
+            <button (click)="updateQuantity(item.id, item.quantity - 1)" [disabled]="item.quantity <= 1">-</button>
+            <span>{{ item.quantity }}</span>
+            <button (click)="updateQuantity(item.id, item.quantity + 1)">+</button>
+          </div>
+  
+          <div class="price-details">
+            <span class="price">{{ item.price }} Dhs</span>
+          </div>
+          <button (click)="removeItemFromCart(item.id)" class="remove-item">Supprimer</button>
+        </div>
       </div>
     </div>
   
-    <div class="total-price">
-      <strong>Total: ${{ totalPrice }}</strong>
+    <!-- Cart Summary Section -->
+    <div class="cart-summary">
+      <h3>RÉSUMÉ DU PANIER</h3>
+      <div class="summary-item">
+        <span>Prix Total</span>
+        <span>{{ totalPrice }} Dhs</span>
+      </div>
+      <button [routerLink]="'/checkout'" class="order-button">
+        Commander ({{ totalPrice }} Dhs)
+      </button>
+      <p class="return-info">
+        Les retours sont faciles. Retour gratuit sous 7 jours.
+      </p>
     </div>
-  
-    <!-- Checkout Button -->
-    <button (click)="proceedToCheckout()" pButton pRipple class="p-element p-ripple p-button">Proceed to Checkout</button>
   </div>
   
+  
+  <!-- Empty  -->
+  <div *ngIf="cartItems.length === 0" class="empty-cart-container">
+    <div class="empty-cart-message">
+        <i class="pi pi-shopping-cart" style="font-size: 3rem; color: #4357AD;"></i>
+        <h3>Votre panier est vide !</h3>
+        <p>Parcourez nos catégories et découvrez nos meilleures offres !</p>
+    </div>
+    <button pButton pRipple class="p-element p-ripple p-button" [routerLink]="'/shop'">
+        Commencez vos achats
+    </button>
+  </div>
+  
+  
+
+</main>

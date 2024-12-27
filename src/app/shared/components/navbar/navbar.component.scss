@@ -1,0 +1,41 @@
+.flex.pt-3 {
+    display: flex;
+    gap: 10px;
+  
+    button {
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 10px 25px;
+      border: 2px solid transparent;
+      transition: all 0.3s ease;
+      border-radius: 30px;
+            cursor: pointer;
+  
+      &:first-child {
+        background-color: #4357ad;
+        color: #ffffff;
+
+  
+        &:hover {
+         
+          background-color: #ffffff;
+          color: #4357ad;
+          border: 2px solid #4357ad;
+        }
+      }
+  
+      &:last-child {
+    
+        background-color: #ffffff; 
+        color: #4357ad; 
+        border: 2px solid #4357ad;
+  
+        &:hover {
+            background-color: #4357ad;
+            color: #ffffff;
+        }
+      }
+    }
+  }
+  

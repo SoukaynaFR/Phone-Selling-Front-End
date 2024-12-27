@@ -1,6 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CartService, CartItem } from 'src/app/services/cart.service';
+import { MessageService } from 'primeng/api';
+
 
 @Component({
   selector: 'app-single-product',
@@ -17,7 +19,7 @@ export class SingleProductComponent implements OnInit {
   cartItems: CartItem[] = [];
 
 
-  constructor(private route: ActivatedRoute, private cartService: CartService) {}
+  constructor(private route: ActivatedRoute, private cartService: CartService, private messageService: MessageService) {}
 
   ngOnInit() {
     const productId = this.route.snapshot.paramMap.get('id');  // Get product ID from route parameters
@@ -43,7 +45,7 @@ export class SingleProductComponent implements OnInit {
           storage: '128 GB',
           battery: '3095 mAh'
         },
-        image: 'https://via.placeholder.com/500x500'
+        image: 'assets/Apple_iphone13.png'
       };
     }
   }
@@ -68,21 +70,26 @@ export class SingleProductComponent implements OnInit {
 
   addToCart(): void {
     const product: CartItem = {
-      id: this.product.id,  // Make sure the ID comes from the product
+      id: this.product.id,  
       name: this.product.name,
       price: this.product.price,
-      quantity: this.quantity,  // Use the selected quantity
+      quantity: this.quantity,  
       image: this.product.image
     };
   
     this.cartService.addToCart(product);
-    this.cartItems = this.cartService.getCartItems();  // Refresh the cart items
+    this.cartItems = this.cartService.getCartItems(); 
     console.log('Item added to cart:', this.cartItems);
+
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Ajouté au panier',
+      detail: 'Le produit a été ajouté à votre panier.',
+    });
   }
   
 
   removeFromCart(item: CartItem): void {
     this.cartItems = this.cartItems.filter(cartItem => cartItem.id !== item.id);
-    // You might need to call the remove method in CartService as well, if needed
   }
 }

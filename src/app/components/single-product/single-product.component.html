@@ -1,6 +1,7 @@
 <div class="single-product">
     <!-- Product Details Section -->
     <section class="product-details">
+      <div class="background-circle"></div>
       <div class="product-image">
         <img [src]="product.image" alt="{{ product.name }}" />
       </div>
@@ -20,13 +21,16 @@
           </ul>
         </div>
         <div class="quantity-selector">
-            <button (click)="decreaseQuantity()">-</button>
-            <input type="text" [value]="quantity" readonly />
-            <button (click)="increaseQuantity()">+</button>
-          </div>
+          <button class="quantity-btn" (click)="decreaseQuantity()">-</button>
+          <input type="text" [value]="quantity" readonly class="quantity-input" />
+          <button class="quantity-btn" (click)="increaseQuantity()">+</button>
+        </div>
+        
+        
         <div class="add-to-cart">
           <button class="btn-primary" (click)="addToCart()">Ajouter au panier</button>
         </div>
+        
       </div>
     </section>
   

@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CartService } from './services/cart.service';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -23,8 +25,9 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     LayoutModule,
+    ToastModule
   ],
-  providers: [],
+  providers: [MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
