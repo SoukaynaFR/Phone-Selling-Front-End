@@ -4,6 +4,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CartService } from './services/cart.service';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -25,9 +27,13 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     LayoutModule,
-    ToastModule
+    ToastModule,
+    HttpClientModule
   ],
-  providers: [MessageService],
+  providers: [MessageService,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
