@@ -6,6 +6,8 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -14,6 +16,8 @@ import { LayoutModule } from './components/layout/layout.module';
 import { SingleProductComponent } from './components/single-product/single-product.component';
 import { CartComponent } from './components/cart/cart.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './components/auth/register/register.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +25,9 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
     SingleProductComponent,
     CartComponent,
     CheckoutComponent,
+    LoginComponent,
+    RegisterComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -28,7 +35,9 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
     BrowserAnimationsModule,
     LayoutModule,
     ToastModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
+
   ],
   providers: [MessageService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

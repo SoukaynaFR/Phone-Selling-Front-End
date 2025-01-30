@@ -17,7 +17,7 @@
     </div>
     <div class="flex align-items-center justify-content-center py-3"><img
             src="https://blocks.primeng.org/assets/images/blocks/logos/peak-700.svg" alt="Image" height="40"></div>
-    <div class="lg:flex w-full lg:w-auto hidden py-3 lg:py-0">
+        <div class="lg:flex w-full lg:w-auto hidden py-3 lg:py-0">
         <ul class="list-none p-0 m-0 flex w-full" style="min-height: 30px;">
             <li class="flex flex-auto lg:flex-initial justify-content-center"><a pRipple
                     class="p-ripple p-element text-900 font-medium inline-flex align-items-center cursor-pointer lg:pr-3 text-700 hover:text-primary"><i
@@ -35,18 +35,21 @@
                 <div
                     class="border-round surface-overlay p-3 shadow-2 absolute right-0 top-100 z-1 w-15rem origin-top hidden">
                     <ul class="list-none p-0 m-0">
-                        <li><a
-                                class="cursor-pointer text-700 hover:text-900 hover:surface-100 border-round flex align-items-center px-3 py-2"><i
-                                    class="pi pi-fw pi-box text-lg mr-2"></i><span>Orders</span></a></li>
-                        <li><a
-                                class="cursor-pointer text-700 hover:text-900 hover:surface-100 border-round flex align-items-center px-3 py-2"><i
-                                    class="pi pi-fw pi-heart text-lg mr-2"></i><span>Favorites</span></a></li>
-                        <li><a
-                                class="cursor-pointer text-700 hover:text-900 hover:surface-100 border-round flex align-items-center px-3 py-2"><i
-                                    class="pi pi-fw pi-star text-lg mr-2"></i><span>Reviews</span></a></li>
-                        <li><a
-                                class="cursor-pointer text-700 hover:text-900 hover:surface-100 border-round flex align-items-center px-3 py-2"><i
-                                    class="pi pi-fw pi-sign-out text-lg mr-2"></i><span>Sign Out</span></a></li>
+                        <li class="flex flex-auto lg:flex-initial justify-content-center">
+                            <a *ngIf="!isLoggedIn" routerLink="/login" class="text-900 font-medium inline-flex align-items-center cursor-pointer lg:px-3 text-700 hover:text-primary">
+                                <i class="pi pi-user text-xl"></i> <span>Se connecter</span>
+                            </a>
+                            <a *ngIf="!isLoggedIn" (click)="goToRegister()" class="text-900 font-medium inline-flex align-items-center cursor-pointer lg:px-3 text-700 hover:text-primary">
+                                <i class="pi pi-user-plus text-xl"></i> <span>Créer un compte</span>
+                            </a>
+                            <a *ngIf="isLoggedIn" routerLink="/account" class="text-900 font-medium inline-flex align-items-center cursor-pointer lg:px-3 text-700 hover:text-primary">
+                                <i class="pi pi-user text-xl"></i> <span>Voir compte</span>
+                            </a>
+                            <a *ngIf="isLoggedIn" (click)="logout()" class="text-900 font-medium inline-flex align-items-center cursor-pointer lg:px-3 text-700 hover:text-primary">
+                                <i class="pi pi-sign-out text-xl"></i> <span>Se déconnecter</span>
+                            </a>
+                        </li>
+                        
                     </ul>
                 </div>
             </li>
