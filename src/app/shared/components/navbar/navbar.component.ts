@@ -22,6 +22,9 @@ export class NavbarComponent implements OnInit {
   goToRegister() {
     this.router.navigate(['/register']); 
   }
+  goToLogin() {
+    this.router.navigate(['/login']); 
+  }
 
   logout() {
     localStorage.removeItem('token'); 

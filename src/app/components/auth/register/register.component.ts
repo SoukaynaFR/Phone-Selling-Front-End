@@ -1,48 +1,40 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/services/auth.service'; // Assurez-vous que ce service existe
-import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent {
-  registerForm: FormGroup;
-  message: string = '';
-  loading: boolean = false;  // Loading state for form submission
+  user = {
+    email: '',
+    mdp: '',
+    nom: '',
+    prenom: '',
+  };
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
-    this.registerForm = this.fb.group({
-      nom: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+  constructor(private authService: AuthService, private http: HttpClient) {}
+
+  register() {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+
+    // Utilisation du service pour faire la requête POST
+    this.http.post('http://localhost:8081/inscription', this.user, httpOptions).subscribe({
+      next: (response) => {
+        console.log('Inscription réussie', response);
+        alert('Inscription réussie');
+      },
+      error: (error) => {
+        console.error('Erreur lors de l’inscription', error);
+        alert('Erreur : ' + (error?.error?.message || error.message || 'Erreur inconnue'));
+      },
     });
   }
-  onSubmit() {
-    if (this.registerForm.valid) {
-      this.loading = true;  // Add a loading state
-      this.message = '';  // Clear any previous messages
-      this.authService.register(this.registerForm.value).subscribe({
-        next: () => {
-          this.message = 'Inscription réussie ! Redirection...';
-          setTimeout(() => {
-            this.router.navigate(['/']);
-            this.registerForm.reset();  // Reset form after success
-          }, 2000);
-        },
-        error: (err) => {
-          this.message = `Erreur lors de l’inscription : ${err?.error?.message || 'Une erreur inconnue est survenue'}`;
-          console.error('Registration error', err);  // Log error for debugging
-        },
-        complete: () => {
-          this.loading = false;  // Hide loading state when the request completes
-        }
-      });
-    } else {
-      this.message = 'Veuillez remplir tous les champs du formulaire correctement.';
-    }
-  }
-  
+
 }

@@ -6,6 +6,8 @@ import { SingleProductComponent } from './components/single-product/single-produ
 import { CartComponent } from './components/./cart/cart.component';
 import { CheckoutComponent } from './components/./checkout/checkout.component';
 import { RegisterComponent } from './components/auth/register/register.component';
+import { LoginComponent } from './components/auth/login/login.component';
+import { AuthGuard } from './guards/auth.guard';
 
 
 
@@ -26,6 +28,7 @@ const routes: Routes = [
     ],
   },
   { path: 'register', component: RegisterComponent },
+  { path: 'login', component: LoginComponent },
 
   { path: '**', redirectTo: '/notfound' },
 

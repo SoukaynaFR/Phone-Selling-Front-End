@@ -1,89 +1,258 @@
-.landing-page {
-  font-family: Arial, sans-serif;
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-  .hero {
-    background-color: #f7f7f7;
-    padding: 60px 20px;
-    text-align: center;
 
-    .hero-text {
-      h1 {
-        font-size: 36px;
-        margin-bottom: 20px;
-      }
-      p {
-        font-size: 18px;
-        margin-bottom: 30px;
-      }
-      .btn-primary {
-        background-color: #007bff;
-        color: white;
-        padding: 15px 30px;
-        font-size: 18px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-      }
-    }
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Empêche le défilement horizontal */
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+  background-color: #f4f4f4;
+}
+
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: 90vh;
+  background-image: url('/assets/top-view-office-concept-with-mobile-phone-headphone-blue-surface.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 80px;
+  box-sizing: border-box;
+
+}
+
+/* Overlay semi-transparent */
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6); /* Ajuste l'opacité selon le besoin */
+}
+
+/* Assure que le texte reste au-dessus de l’overlay */
+.hero-text {
+  position: relative;
+  z-index: 1;
+  color: #f4f4f4;
+}
+
+.hero-text span{
+  background: linear-gradient(45deg, #8e44ad, #e84393);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  opacity: 0.8;
+}
+
+.hero .btn-primary {
+  padding: 15px 40px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  background-color: #001f3f;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.hero .btn-primary:hover {
+  background: linear-gradient(45deg, #8e44ad, #e84393);
+  color: white;
+  box-shadow: 0 6px 15px rgba(142, 68, 173, 0.5);
+  transform: translateY(-3px);
+}
+
+/* Best Offers Section */
+.best-offers {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.best-offers h2 {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.offers-list {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.offer-item {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  width: 250px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.offer-item img {
+  max-width: 100%;
+  border-radius: 5px;
+}
+
+.offer-item h3 {
+  margin: 15px 0;
+  font-size: 1.5rem;
+}
+
+.offer-item p {
+  font-size: 1rem;
+  color: #666;
+}
+
+.price {
+  display: block;
+  margin-top: 10px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #ff6600;
+}
+
+/* Product Catalog Section */
+.product-catalog {
+  margin-top: 80px;
+  text-align: center;
+}
+
+.product-catalog h2 {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+}
+
+.catalog-list {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.catalog-item {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  width: 250px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.catalog-item img {
+  max-width: 100%;
+  border-radius: 5px;
+}
+
+.catalog-item h3 {
+  margin: 15px 0;
+  font-size: 1.5rem;
+}
+
+.catalog-item p {
+  font-size: 1rem;
+  color: #666;
+}
+
+.catalog-item .price {
+  display: block;
+  margin-top: 10px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #ff6600;
+}
+
+.catalog-item .btn-secondary {
+  margin-top: 10px;
+  padding: 8px 20px;
+  background-color: #333;
+  color: white;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.catalog-item .btn-secondary:hover {
+  background-color: #555;
+}
+
+/* AI Recommendation Section */
+.ai-recommendation {
+  background-color: #f4f4f4;
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.ai-recommendation h2 {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.ai-recommendation p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.ai-recommendation .btn-primary {
+  padding: 12px 30px;
+  background-color: #ff6600;
+  color: white;
+  font-size: 1.1rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.ai-recommendation .btn-primary:hover {
+  background-color: #ff5500;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2.5rem;
   }
 
-  .best-offers, .product-catalog, .ai-recommendation {
-    padding: 40px 20px;
-    text-align: center;
+  .hero p {
+    font-size: 1rem;
+  }
 
-    h2 {
-      font-size: 30px;
-      margin-bottom: 30px;
-    }
-
-    .offers-list, .catalog-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 20px;
-
-      .offer-item, .catalog-item {
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        text-align: center;
-
-        img {
-          width: 100%;
-          height: auto;
-          border-radius: 8px;
-        }
-
-        h3 {
-          font-size: 20px;
-          margin: 10px 0;
-        }
-
-        .price {
-          font-size: 18px;
-          color: #007bff;
-          font-weight: bold;
-        }
-
-        .btn-secondary {
-          background-color: #28a745;
-          color: white;
-          padding: 10px 20px;
-          border: none;
-          border-radius: 5px;
-          cursor: pointer;
-        }
-      }
-    }
-
-    .btn-primary {
-      background-color: #28a745;
-      color: white;
-      padding: 15px 30px;
-      font-size: 18px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
+  .offer-item,
+  .catalog-item {
+    width: 100%;
   }
 }
