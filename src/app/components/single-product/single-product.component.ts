@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';  // Import ApiService
 import { MessageService } from 'primeng/api';
+import { ProductService } from '../../services/product.service';
+
 
 @Component({
   selector: 'app-single-product',
@@ -16,16 +18,23 @@ export class SingleProductComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private productService: ProductService,
     private apiService: ApiService,  // Inject ApiService
     private messageService: MessageService
   ) {}
 
   ngOnInit() {
-    const productId = this.route.snapshot.paramMap.get('id');  // Get product ID from route parameters
+    // Récupérer l'ID du produit à partir de l'URL
+    const productId = +this.route.snapshot.paramMap.get('id')!;
+    this.productService.getProductById(productId).subscribe((product) => {
+      
+      this.product = product;
+    });
 
-    // Fetch product details (replace with actual data fetching)
-    this.fetchProductDetails(productId);
-    this.fetchRelatedProducts();
+    // Charger les produits similaires, si nécessaire
+    // this.productService.getRelatedProducts(productId).subscribe((related) => {
+    //   this.relatedProducts = related;
+    // });
   }
 
   fetchProductDetails(productId: string | null) {
@@ -66,10 +75,14 @@ export class SingleProductComponent implements OnInit {
   }
 
   addToCart(): void {
-    // Call the ApiService to add item to cart
+    if (!this.product || !this.product.id) {
+      console.error("Produit invalide !");
+      return;
+    }
+  
     this.apiService.addItemToCart(this.product.id, this.quantity).subscribe(
       (response) => {
-        console.log('Product added to cart:', response);
+        console.log('Produit ajouté au panier :', response);
         this.messageService.add({
           severity: 'success',
           summary: 'Ajouté au panier',
@@ -77,7 +90,7 @@ export class SingleProductComponent implements OnInit {
         });
       },
       (error) => {
-        console.error('Error adding product to cart:', error);
+        console.error('Erreur lors de l\'ajout au panier :', error);
         this.messageService.add({
           severity: 'error',
           summary: 'Erreur',
@@ -86,4 +99,5 @@ export class SingleProductComponent implements OnInit {
       }
     );
   }
+  
 }

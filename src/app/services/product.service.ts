@@ -3,25 +3,26 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root' 
 })
 export class ProductService {
-  private baseUrl = '/api/products'; // Replace with your actual backend API URL if needed
+  private apiUrl = 'http://localhost:8081/product'; // Assure-toi que ton backend tourne sur ce port
 
   constructor(private http: HttpClient) {}
 
-  // Get all products
+  // Récupérer tous les produits
   getAllProducts(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}`);
+    return this.http.get<any[]>(`${this.apiUrl}/all`);
   }
 
-  // Get a single product by ID
-  getProductById(productId: string): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/${productId}`);
+  // Récupérer les produits par catégorie
+  getProductsByCategory(category: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/category/${category}`);
   }
 
-  // Get related products by product ID
-  getRelatedProducts(productId: string): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/${productId}/related`);
+
+
+  getProductById(id: number){
+    return this.http.get(`${this.apiUrl}/getbyid/${id}`);
   }
 }
