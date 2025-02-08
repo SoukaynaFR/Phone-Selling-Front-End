@@ -1,89 +1,482 @@
-.landing-page {
-  font-family: Arial, sans-serif;
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-  .hero {
-    background-color: #f7f7f7;
-    padding: 60px 20px;
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Empêche le défilement horizontal */
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+  background-color: #f4f4f4;
+}
+
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: 90vh;
+  background-image: url('/assets/top-view-office-concept-with-mobile-phone-headphone-blue-surface.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 80px;
+  box-sizing: border-box;
+
+}
+
+/* Overlay semi-transparent */
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6); /* Ajuste l'opacité selon le besoin */
+}
+
+/* Assure que le texte reste au-dessus de l’overlay */
+.hero-text {
+  position: relative;
+  z-index: 1;
+  color: #f4f4f4;
+}
+
+.hero-text span{
+  background: linear-gradient(45deg, #8e44ad, #e84393);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  opacity: 0.8;
+}
+
+.hero .btn-primary {
+  padding: 15px 40px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  background-color: #001f3f;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.hero .btn-primary:hover {
+  background: linear-gradient(45deg, #8e44ad, #e84393);
+  color: white;
+  box-shadow: 0 6px 15px rgba(142, 68, 173, 0.5);
+  transform: translateY(-3px);
+}
+
+/* Best Offers Section */
+
+
+
+.best-offers {
+  text-align: center;
+  padding: 40px 30px;
+
+  h2 {
     text-align: center;
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+  }
 
-    .hero-text {
-      h1 {
-        font-size: 36px;
-        margin-bottom: 20px;
+  .carousel {
+    position: relative;
+    overflow: hidden;
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+  }
+
+  .carousel-inner {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 10px;
+    white-space: nowrap;
+    flex-wrap: nowrap; 
+  overflow-x: hidden;
+  }
+
+  .offer-item {
+    flex: 0 0 auto;
+    width: 250px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    padding: 20px;
+    gap: 40px;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    }
+  }
+  .offer-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+    border-radius: 10px;
+  }
+  .price {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #007bff;
+    margin: 10px 15px;
+    display: block;
+    text-align: center;
+  }
+  .carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+  }
+
+
+  .btn-secondary {
+    width: auto; 
+    display: block;  // Assure-toi qu'il prend toute la largeur de son conteneur
+    margin: 0 auto;  // Cela le centre horizontalement
+    text-align: center;  // Centre le texte à l'intérieur du bouton     
+    padding: 10px 30px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    background-color: #001f3f;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+
+    &:hover {
+      background-color: #0056b3;
+    }
+  }
+  .prev , .next {
+    position: absolute;
+    width: 50px; 
+    height: 50px; 
+    background-color: #001f3f; 
+    color: white;
+    border: none; 
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px; 
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); 
+    transition: background 0.3s ease;
+  }
+  
+  .prev:hover , .next:hover {
+    background: linear-gradient(45deg, #8e44ad, #e84393);
+    }
+  
+
+  .prev{
+    left: 5px;
+  }
+  .next {
+    right: 5px;
+  }
+
+  .carousel-btn:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+
+  .see-all-container {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .see-all-btn {
+    background: linear-gradient(45deg, #8e44ad, #e84393);
+    color: white;
+    padding: 12px 30px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+    margin-bottom: 10px;
+  }
+  
+  .see-all-btn:hover {
+    background: linear-gradient(45deg, #8e44ad, #e84393);
+  }
+  
+}
+
+
+
+/* AI Recommendation Section */
+.ai-recommendation {
+  background-color: #f4f4f4;
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.ai-recommendation h2 {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.ai-recommendation p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.ai-recommendation .btn-primary {
+  padding: 12px 30px;
+  background: linear-gradient(45deg, #8e44ad, #e84393);
+  color: white;
+  font-size: 1.1rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.ai-recommendation .btn-primary:hover {
+  background-color: #ff5500;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+
+  .offer-item,
+  .catalog-item {
+    width: 100%;
+  }
+}
+
+
+.product-catalog {
+  font-family: 'Arial', sans-serif;
+  padding: 40px;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+  h2 {
+    text-align: center;
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 30px;
+  }
+
+  .filters {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+    label {
+      font-weight: bold;
+      color: #333;
+    }
+
+    select, input[type="range"] {
+      padding: 10px;
+      font-size: 1rem;
+      border-radius: 4px;
+      border: 1px solid #ddd;
+      transition: border 0.3s ease;
+
+      &:focus {
+        border-color: #007bff;
+        outline: none;
       }
-      p {
-        font-size: 18px;
-        margin-bottom: 30px;
-      }
-      .btn-primary {
-        background-color: #007bff;
-        color: white;
-        padding: 15px 30px;
-        font-size: 18px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-      }
+    }
+
+    input[type="range"] {
+      width: 200px;
+    }
+
+    span {
+      font-weight: bold;
+      color: #333;
     }
   }
 
-  .best-offers, .product-catalog, .ai-recommendation {
-    padding: 40px 20px;
-    text-align: center;
+  .catalog-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    padding-top: 20px;
 
-    h2 {
-      font-size: 30px;
-      margin-bottom: 30px;
-    }
+    .catalog-item {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      padding: 20px;
 
-    .offers-list, .catalog-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 20px;
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+      }
 
-      .offer-item, .catalog-item {
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      .product-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        transition: opacity 0.3s ease;
+        border-radius: 10px;
+
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+
+      h3 {
+        font-size: 1.2rem;
+        color: #333;
+        margin: 10px 15px;
         text-align: center;
+      }
 
-        img {
-          width: 100%;
-          height: auto;
-          border-radius: 8px;
-        }
+      p {
+        font-size: 0.95rem;
+        color: #666;
+        margin: 0 15px ;
+        text-align: center;
+        height: 20px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
 
-        h3 {
-          font-size: 20px;
-          margin: 10px 0;
-        }
+      .price {
+        font-size: 1.1rem;
+        font-weight: bold;
+        color: #007bff;
+        margin: 10px 15px;
+        display: block;
+        text-align: center;
+      }
 
-        .price {
-          font-size: 18px;
-          color: #007bff;
-          font-weight: bold;
-        }
+      .btn-secondary {
+        width: auto; 
+        display: block;  // Assure-toi qu'il prend toute la largeur de son conteneur
+        margin: 0 auto;  // Cela le centre horizontalement
+        text-align: center;  // Centre le texte à l'intérieur du bouton     
+        padding: 10px 30px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        background-color: #001f3f;
+        color: white;
+        border: none;
+        cursor: pointer;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        letter-spacing: 1px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 
-        .btn-secondary {
-          background-color: #28a745;
-          color: white;
-          padding: 10px 20px;
-          border: none;
-          border-radius: 5px;
-          cursor: pointer;
+        &:hover {
+          background-color: #0056b3;
         }
       }
     }
-
-    .btn-primary {
-      background-color: #28a745;
-      color: white;
-      padding: 15px 30px;
-      font-size: 18px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
   }
+}
+
+
+
+.services {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  padding: 50px;
+  background-color: white;
+  height: 60vh;
+
+}
+
+.service {
+  text-align: center;
+  max-width: 250px;
+}
+
+.icon {
+  width: 60px;
+  height: 60px;
+  background-color: #ddd;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+}
+
+.icon i {
+  font-size: 24px;
+  color: black;
+}
+
+h3 {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+p {
+  font-size: 14px;
+  color: gray;
 }

@@ -5,6 +5,11 @@ import { LandingPageComponent } from './components/landing-page/landing-page.com
 import { SingleProductComponent } from './components/single-product/single-product.component';
 import { CartComponent } from './components/./cart/cart.component';
 import { CheckoutComponent } from './components/./checkout/checkout.component';
+import { RegisterComponent } from './components/auth/register/register.component';
+import { LoginComponent } from './components/auth/login/login.component';
+import { AuthGuard } from './guards/auth.guard';
+import { AllProductsComponent } from './components/all-products/all-products.component';
+
 import { SearchComponent } from './pages/search/search.component';
 import { DashboardComponent } from './Admin/dashboard/dashboard.component';
 import { OrdersComponent } from './Admin/orders/orders.component';
@@ -21,34 +26,31 @@ const routes: Routes = [
         component: LandingPageComponent,
       },
       { path: 'product/:id', component: SingleProductComponent },
+      { path: 'all-products', component: AllProductsComponent },
       { path: 'search', component: SearchComponent },
       { path: 'cart', component: CartComponent },
 
       { path: 'checkout', component: CheckoutComponent },
 
-      /*{ path: 'dashboard', component: DashboardComponent },
-      { path: 'orders', component: OrdersComponent },
-      { path: 'products', component: ProductsComponent },
-      { path: 'admin', component: AdminComponent },
-      { path: '', redirectTo: '/admin', pathMatch: 'full' },
-      { path: '', redirectTo: '/dashboard', pathMatch: 'full' },*/
+   
     ],
+    
   },
   {path: 'admin',
-  component: AdminComponent,
-  children: [
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'orders', component: OrdersComponent },
-  { path: 'products', component: ProductsComponent },
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
-]
-},
-{ path: '', redirectTo: '/admin', pathMatch: 'full' },
-
-
-
+    component: AdminComponent,
+    children: [
+    { path: 'dashboard', component: DashboardComponent },
+    { path: 'orders', component: OrdersComponent },
+    { path: 'products', component: ProductsComponent },
+    { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
+  ]
+  },
+  { path: '', redirectTo: '/admin', pathMatch: 'full' },
+  { path: 'register', component: RegisterComponent },
+  { path: 'login', component: LoginComponent },
 
   { path: '**', redirectTo: '/notfound' },
+
 ];
 
 @NgModule({

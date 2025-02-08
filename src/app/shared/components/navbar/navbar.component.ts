@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-navbar',
@@ -8,9 +9,12 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
   cartItems: any[] = [];
-  searchQuery: string = ''; // Holds the search input
+  isLoggedIn: boolean = false;
+searchQuery: any;
 
-  constructor(private router: Router) {}
+  constructor(private cartService: CartService, private router: Router) { 
+    this.isLoggedIn = !!localStorage.getItem('token');
+  }
 
   ngOnInit() {
     // Fetch cart items if needed
@@ -21,5 +25,17 @@ export class NavbarComponent implements OnInit {
       // Redirect to the search results page with the query
       this.router.navigate(['/search'], { queryParams: { q: this.searchQuery } });
     }
+  }
+
+  goToRegister() {
+    this.router.navigate(['/register']); 
+  }
+  goToLogin() {
+    this.router.navigate(['/login']); 
+  }
+
+  logout() {
+    localStorage.removeItem('token'); 
+    this.isLoggedIn = false;
   }
 }

@@ -1,0 +1,18 @@
+
+<div class="container">
+  <div class="image-section">
+    <img src="../../../../assets/Side Image.png" alt="Shopping illustration" />
+  </div>
+  <div class="form-section">
+    <h2>Create an account</h2>
+    <p>Enter your details below</p>
+    <form (ngSubmit)="register()">
+      <input type="text" [(ngModel)]="user.nom" name="nom" placeholder="Name" required />
+      <input type="text" [(ngModel)]="user.email" name="email" placeholder="Email or Phone Number" required />
+      <input type="password" [(ngModel)]="user.mdp" name="mdp" placeholder="Password" required />
+      
+      <button type="submit" class="create-account">Create Account</button>
+    </form>
+    <p>Already have an account? <a href="#">Log in</a></p>
+  </div>
+</div>

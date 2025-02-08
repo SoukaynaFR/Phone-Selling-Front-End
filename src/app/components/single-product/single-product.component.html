@@ -1,16 +1,23 @@
 <div class="single-product">
     <!-- Product Details Section -->
     <section class="product-details">
+      <div class="background-circle"></div>
       <div class="product-image">
-        <img [src]="product.image" alt="{{ product.name }}" />
+        <img *ngIf="product.image; else defaultImg" [src]="product.image" alt="{{ product.name }}" />
+
+        <ng-template #defaultImg>
+          <img src="https://img.freepik.com/free-photo/blank-phone-screen-purple-background_53876-143196.jpg?uid=R87884697&semt=ais_hybrid" alt="Image par défaut" />
+        </ng-template>
+        
       </div>
       <div class="product-info">
         <h1>{{ product.name }}</h1>
         <p class="product-description">{{ product.description }}</p>
+        <p class="product-brand">{{ product.brand }}</p>
         <div class="product-price">
           <span>{{ product.price }} €</span>
         </div>
-        <div class="product-specs">
+        <!-- <div class="product-specs">
           <h3>Caractéristiques :</h3>
           <ul>
             <li><strong>RAM:</strong> {{ product.specifications.ram }}</li>
@@ -18,15 +25,18 @@
             <li><strong>Stockage:</strong> {{ product.specifications.storage }}</li>
             <li><strong>Batterie:</strong> {{ product.specifications.battery }}</li>
           </ul>
-        </div>
+        </div> -->
         <div class="quantity-selector">
-            <button (click)="decreaseQuantity()">-</button>
-            <input type="text" [value]="quantity" readonly />
-            <button (click)="increaseQuantity()">+</button>
-          </div>
+          <button class="quantity-btn" (click)="decreaseQuantity()">-</button>
+          <input type="text" [value]="quantity" readonly class="quantity-input" />
+          <button class="quantity-btn" (click)="increaseQuantity()">+</button>
+        </div>
+        
+        
         <div class="add-to-cart">
           <button class="btn-primary" (click)="addToCart()">Ajouter au panier</button>
         </div>
+        
       </div>
     </section>
   

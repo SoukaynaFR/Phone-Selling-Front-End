@@ -1,0 +1,69 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  gap: 50px;
+}
+
+.image-section img {
+  width: 400px;
+}
+
+.form-section {
+  max-width: 400px;
+  text-align: left;
+}
+
+h2 {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+p {
+  font-size: 14px;
+  color: gray;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.create-account {
+  background-color: #e63946;
+  color: white;
+}
+
+.google-signup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ccc;
+  background: white;
+}
+
+.google-signup img {
+  width: 20px;
+  margin-right: 5px;
+}
+
+a {
+  color: #000;
+  font-weight: bold;
+  text-decoration: none;
+}
