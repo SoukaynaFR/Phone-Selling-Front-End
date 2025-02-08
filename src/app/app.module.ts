@@ -16,7 +16,8 @@ import { CartComponent } from './components/cart/cart.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { LoginComponent } from './components/auth/login/login.component';
-import { ProductService } from './services/product.service'
+import { ProductService } from './services/product.service';
+import { AllProductsComponent } from './components/all-products/all-products.component'
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ProductService } from './services/product.service'
     CartComponent,
     CheckoutComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    AllProductsComponent
     
   ],
   imports: [

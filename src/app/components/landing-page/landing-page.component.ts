@@ -11,7 +11,7 @@ export class LandingPageComponent implements OnInit {
   bestOffers: any[] = [];
   filteredProducts: any[] = [];
   categories: string[] = ['Smartphones', 'Tablettes', 'Écouteurs et Casques', 'Chargeurs et Batteries', 'Coques et Protection', 'Montres connectées'];
-  selectedCategory: string = '';  // Add selectedCategory
+  selectedCategory: string = '';  
   priceRange: number = 0;
 
   constructor(private productService: ProductService,private router: Router) {}
@@ -26,11 +26,21 @@ export class LandingPageComponent implements OnInit {
           imageUrl: product.download_url || 'https://img.freepik.com/free-photo/blank-phone-screen-purple-background_53876-143196.jpg?uid=R87884697&semt=ais_hybrid'  // Image par défaut si aucune URL n'est fournie
         };
       });
-      this.filteredProducts = this.products; // Afficher tous les produits par défaut
+      this.filteredProducts = this.products;
+      this.loadBestOffers();
     });
 
   }
-
+  loadBestOffers() {
+    this.productService.getRandomProducts(16).subscribe({
+      next: (products) => {
+        this.bestOffers = products;
+      },
+      error: (error) => {
+        console.error('Erreur lors du chargement des produits :', error);
+      }
+    });
+  }
   filterByCategory(category: string) {
     this.filteredProducts = this.products.filter(product => product.category === category);
   }
@@ -47,10 +57,21 @@ export class LandingPageComponent implements OnInit {
     this.router.navigate(['/product', productId]);  // Navigation vers /product/:id
   }
   prevSlide() {
-    // Implement your previous slide logic here
+    const carousel = document.querySelector('.carousel-inner') as HTMLElement;
+    if (carousel) {
+      carousel.scrollBy({ left: -300, behavior: 'smooth' });
+    }
   }
 
   nextSlide() {
-    // Implement your next slide logic here
+    const carousel = document.querySelector('.carousel-inner') as HTMLElement;
+    if (carousel) {
+      carousel.scrollBy({ left: 300, behavior: 'smooth' });
+    }
   }
+
+  goToAllProducts() {
+    this.router.navigate(['/all-products']); // Assurez-vous que la route "/products" existe
+  }
+  
 }

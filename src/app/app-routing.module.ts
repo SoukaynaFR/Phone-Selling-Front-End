@@ -8,6 +8,7 @@ import { CheckoutComponent } from './components/./checkout/checkout.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { AuthGuard } from './guards/auth.guard';
+import { AllProductsComponent } from './components/all-products/all-products.component';
 
 
 
@@ -21,6 +22,7 @@ const routes: Routes = [
         component: LandingPageComponent,
       },
       { path: 'product/:id', component: SingleProductComponent },
+      { path: 'all-products', component: AllProductsComponent },
 
       { path: 'cart', component: CartComponent },
       { path: 'checkout', component: CheckoutComponent },
