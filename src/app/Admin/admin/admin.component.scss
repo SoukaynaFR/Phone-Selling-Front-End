@@ -1,0 +1,9 @@
+.admin-layout {
+  display: flex;
+}
+
+.content {
+  margin-left: 200px; // Adjusted width
+  padding: 20px;
+  width: calc(100% - 200px);
+}

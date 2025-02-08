@@ -4,7 +4,7 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
 
 import { NavbarComponent } from 'src/app/shared/components/navbar/navbar.component';
 import { FooterComponent } from 'src/app/shared/components/footer/footer.component';
-import { LandingPageModule } from 'src/app/components/landing-page/landing-page.module';  
+import { LandingPageModule } from 'src/app/components/landing-page/landing-page.module';
 
 import { DividerModule } from 'primeng/divider';
 import { InputTextModule } from 'primeng/inputtext';
@@ -13,6 +13,7 @@ import { RippleModule } from 'primeng/ripple';
 import { StyleClassModule } from 'primeng/styleclass';
 
 import { CommonModule } from '@angular/common';
+import {FormsModule} from "@angular/forms";
 
 
 
@@ -21,19 +22,20 @@ import { CommonModule } from '@angular/common';
     LayoutComponent,
     NavbarComponent,
     FooterComponent,
-    
+
   ],
-  imports: [
-    DividerModule,
-    AppRoutingModule,
-    InputTextModule,
-    ButtonModule,
-    RippleModule,
-    StyleClassModule,
-    LandingPageModule,
-    CommonModule
-    
-  ],
+    imports: [
+        DividerModule,
+        AppRoutingModule,
+        InputTextModule,
+        ButtonModule,
+        RippleModule,
+        StyleClassModule,
+        LandingPageModule,
+        CommonModule,
+        FormsModule
+
+    ],
   exports: [LayoutComponent]
 })
 export class LayoutModule { }

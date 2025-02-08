@@ -1,0 +1,45 @@
+.orders-section {
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 10px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+th {
+  background: #0b57d0;
+  color: white;
+}
+
+button {
+  padding: 5px 10px;
+  margin-right: 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:nth-child(1) {
+  background: #3498db;
+  color: white;
+}
+
+button:nth-child(2) {
+  background: #f39c12;
+  color: white;
+}
+
+button:nth-child(3) {
+  background: #e74c3c;
+  color: white;
+}
