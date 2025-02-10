@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CartService, CartItem } from 'src/app/services/cart.service';
+import { CartService } from 'src/app/services/cart.service';
 
 
 
@@ -10,11 +10,11 @@ import { CartService, CartItem } from 'src/app/services/cart.service';
 })
 export class LayoutComponent {
   cart: any[] = [];
-  cartItems: CartItem[] = [];
+  // cartItems: CartItem[] = [];
 
   constructor(private cartService: CartService) {}
 
   ngOnInit(): void {
-    this.cartItems = this.cartService.getCartItems();
+    // this.cartItems = this.cartService.getCartItems();
   }
 }

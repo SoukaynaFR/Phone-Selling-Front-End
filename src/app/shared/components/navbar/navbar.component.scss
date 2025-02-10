@@ -84,6 +84,7 @@
 
 .border-round.surface-overlay {
   border: 2px solid #001f3f !important;
+  z-index: 1000 !important;
 }
 
 #list-account{

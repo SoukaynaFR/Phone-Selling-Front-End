@@ -13,31 +13,33 @@ export class CartComponent implements OnInit {
   constructor(private cartService: CartService) {}
 
   ngOnInit(): void {
-    this.cartItems = this.cartService.getCartItems();
-    this.calculateTotalPrice();
+    // ✅ Écouter les changements du panier
+    this.cartService.cartItems$.subscribe((items: any[]) => {
+      this.cartItems = items;
+      this.calculateTotalPrice();
+    });
+
+    // ✅ Écouter les changements de prix total
+    this.cartService.totalPrice$.subscribe((price: number) => {
+      this.totalPrice = price;
+    });
+
+    // Charger le panier au début
+    this.cartService.updateCart();
   }
 
-  // Update the total price whenever the cart items change
-  calculateTotalPrice(): void {
-    this.totalPrice = this.cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
-  }
-
-  // Remove an item from the cart
+  // ✅ Supprimer un article du panier
   removeItemFromCart(itemId: number): void {
     this.cartService.removeItemFromCart(itemId);
-    this.cartItems = this.cartService.getCartItems(); // Refresh the cart items list
-    this.calculateTotalPrice(); // Recalculate the total price
   }
 
-  // Update the quantity of an item in the cart
+  // ✅ Mettre à jour la quantité d'un article
   updateQuantity(itemId: number, quantity: number): void {
     this.cartService.updateQuantity(itemId, quantity);
-    this.cartItems = this.cartService.getCartItems(); // Refresh the cart items list
-    this.calculateTotalPrice(); // Recalculate the total price
   }
 
-  // Proceed to Checkout (to be implemented)
-  proceedToCheckout(): void {
-    // Logic for checkout, e.g., navigate to a checkout page
+  // ✅ Calculer le prix total
+  private calculateTotalPrice(): void {
+    this.totalPrice = this.cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
   }
 }

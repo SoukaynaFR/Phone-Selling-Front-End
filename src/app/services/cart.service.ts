@@ -1,56 +1,73 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-
-
-export interface CartItem {
-  id: number;
-  name: string;
-  price: number;
-  quantity: number;
-  image: string;
-}
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CartService {
-  private cartItems: CartItem[] = [];
-  private apiUrl = '/api/cart';
+  private apiUrl = 'http://localhost:8081/my-cart';
+  private cartItemsSubject = new BehaviorSubject<any[]>([]);
+  private totalPriceSubject = new BehaviorSubject<number>(0);
+
+  cartItems$ = this.cartItemsSubject.asObservable();
+  totalPrice$ = this.totalPriceSubject.asObservable();
 
   constructor(private http: HttpClient) {}
 
-  getCartItems() {
-    return this.cartItems;
+  /** ✅ Récupérer les articles du panier **/
+  getCart(): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+
+    return this.http.get(this.apiUrl, { headers, withCredentials: true });
   }
 
-  // addToCart(item: CartItem): void {
-  //   const existingItem = this.cartItems.find(cartItem => cartItem.id === item.id);
-  //   if (existingItem) {
-  //     existingItem.quantity += item.quantity;
-  //   } else {
-  //     this.cartItems.push(item);
-  //   }
-  // }
-
-
-   // Add an item to the cart
-   addToCart(item: CartItem): Observable<void> {
-    return this.http.post<void>(`${this.apiUrl}`, item);
+  /** ✅ Mettre à jour le panier et recalculer le prix total **/
+  updateCart(): void {
+    this.getCart().subscribe(cart => {
+      const items = cart.items || [];
+      this.cartItemsSubject.next(items);
+      this.calculateTotalPrice(items);
+    });
   }
 
+  /** ✅ Supprimer un article du panier **/
+  removeItemFromCart(itemId: number): void {
+    const url = `http://localhost:8081/Item/delete/${itemId}`;
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
 
-  // Remove an item from the cart
-  removeItemFromCart(itemId: number) {
-    this.cartItems = this.cartItems.filter(item => item.id !== itemId);
+    this.http.delete(url, { headers, withCredentials: true }).subscribe(() => {
+      this.updateCart(); // Mettre à jour après suppression
+    });
   }
 
-  // Update the quantity of an item in the cart
-  updateQuantity(itemId: number, quantity: number) {
-    const item = this.cartItems.find(cartItem => cartItem.id === itemId);
-    if (item) {
-      item.quantity = quantity;
-    }
+  /** ✅ Mettre à jour la quantité d'un article **/
+  updateQuantity(itemId: number, quantity: number): void {
+    const url = `${this.apiUrl}/update`;
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+
+    this.http.put(url, { itemId, quantity }, { headers, withCredentials: true })
+      .subscribe(() => {
+        this.updateCart(); // Mettre à jour après modification
+      });
+  }
+
+  /** ✅ Calculer le prix total du panier **/
+  private calculateTotalPrice(cartItems: any[]): void {
+    const total = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    this.totalPriceSubject.next(total);
   }
 }
-

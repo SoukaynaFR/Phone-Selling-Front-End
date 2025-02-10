@@ -11,6 +11,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   errorMessage: string = '';
+  isLoggedIn!: boolean;
 
   constructor(
     private fb: FormBuilder,
@@ -26,6 +27,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+
     if (this.loginForm.invalid) {
       console.error('Formulaire invalide', this.loginForm.errors);
       return;
@@ -54,6 +56,7 @@ export class LoginComponent implements OnInit {
         console.error('Erreur API:', error);
       }
     );
+    
   }
 
   redirectToRegister() {
