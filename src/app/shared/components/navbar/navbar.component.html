@@ -1,22 +1,13 @@
 <div class="surface-overlay px-3 sm:px-7 flex flex-wrap align-items-stretch justify-content-between relative" style="background-color: #e3e9ef !important;">
-    <a pRipple pStyleClass="#nav-2" enterClass="hidden" leaveToClass="hidden"
-        class="p-ripple p-element cursor-pointer flex align-items-center lg:hidden text-700 mr-3"><i
-            class="pi pi-bars text-4xl"></i><span class="p-ink"></span></a>
-    <div id="nav-2"
-        class="surface-overlay hidden lg:flex absolute lg:static left-0 top-100 z-1 shadow-2 lg:shadow-none w-full lg:w-auto py-3 lg:py-0">
-        <ul class="list-none p-0 m-0 flex flex-column lg:flex-row">
-            <li class="flex flex-column lg:flex-row">
-                <a pRipple pStyleClass="@next" enterClass="hidden" leaveToClass="hidden"
-                    class="p-ripple p-element font-medium inline-flex align-items-center cursor-pointer border-left-2 lg:border-left-none lg:border-bottom-2 border-transparent hover:border-primary py-3 lg:py-0 px-6 lg:px-3 text-700 select-none text-xl lg:text-base lg:font-base w-full lg:w-auto" style="background-color: #e3e9ef !important;"><span>Téléphones</span></a>
-            </li>
-            <li class="flex flex-column lg:flex-row">
-                <a pRipple pStyleClass="@next" enterClass="hidden" leaveToClass="hidden"
-                    class="p-ripple p-element font-medium inline-flex align-items-center cursor-pointer border-left-2 lg:border-left-none lg:border-bottom-2 border-transparent hover:border-primary py-3 lg:py-0 px-6 lg:px-3 text-700 select-none text-xl lg:text-base lg:font-base w-full lg:w-auto" style="background-color: #e3e9ef !important;"><span>Accessoires</span></a>
-            </li>
-        </ul>
-    </div>
-    <div class="flex align-items-center justify-content-center py-3"><img
-            src="assets/smartbuy-high-resolution-logo-transparent.png" alt="logo" height="40"></div>
+
+        <div class="flex align-items-center justify-content-center py-3">
+            <a href="/" class="flex items-center">
+                <img src="assets/smartbuy-high-resolution-logo-transparent.png" alt="logo" height="40">
+            </a>
+        </div>
+        
+    <div class="flex align-items-center justify-content-center py-3">  
+        
         <div class="lg:flex w-full lg:w-auto hidden py-3 lg:py-0">
         <ul class="list-none p-0 m-0 flex w-full" style="min-height: 30px;">
           <div class="flex items-center justify-center w-full">
@@ -35,22 +26,25 @@
                 <a pRipple pStyleClass="@next" enterClass="hidden" enterActiveClass="scalein" leaveToClass="hidden"
                     leaveActiveClass="fadeout"
                     class="p-ripple p-element text-900 font-medium inline-flex align-items-center cursor-pointer lg:px-3 text-700 hover:text-primary"><i
-                        class="pi pi-user text-xl"></i><span class="hidden">Sign In</span><span class="p-ink"
+                        class="pi pi-user text-xl"></i><span class="p-ink"
                         style="height: 72px; width: 72px; top: 3px; left: -20.9844px;"></span></a>
-                <div
-                    class="border-round surface-overlay p-3 shadow-2 absolute right-0 top-100 z-1 w-15rem origin-top hidden">
-                    <ul class="list-none p-0 m-0">
-                        <li class="flex flex-auto lg:flex-initial justify-content-center">
-                            <a *ngIf="!isLoggedIn" (click)="goToLogin()" class="text-900 font-medium inline-flex align-items-center cursor-pointer lg:px-3 text-700 hover:text-primary">
+                        <div 
+                        class="border-round surface-overlay p-3 shadow-2 absolute right-0 top-100 z-1 w-15rem origin-top" 
+                        [ngClass]="{'hidden': !isMenuVisible}"
+                      >
+                      
+                    <ul   class="list-none p-0 m-0">
+                        <li  id="list-account" class="">
+                            <a *ngIf="!isLoggedIn" (click)="goToLogin()" (click)="toggleMenu()" class="a-account">
                                 <i class="pi pi-user text-xl"></i> <span>Se connecter</span>
                             </a>
-                            <a *ngIf="!isLoggedIn" (click)="goToRegister()" class="text-900 font-medium inline-flex align-items-center cursor-pointer lg:px-3 text-700 hover:text-primary">
+                            <a *ngIf="!isLoggedIn" (click)="goToRegister()" (click)="toggleMenu()" class="a-account">
                                 <i class="pi pi-user-plus text-xl"></i> <span>Créer un compte</span>
                             </a>
-                            <a *ngIf="isLoggedIn" routerLink="/account" class="text-900 font-medium inline-flex align-items-center cursor-pointer lg:px-3 text-700 hover:text-primary">
+                            <a *ngIf="isLoggedIn" routerLink="/account" (click)="toggleMenu()" class="a-account">
                                 <i class="pi pi-user text-xl"></i> <span>Voir compte</span>
                             </a>
-                            <a *ngIf="isLoggedIn" (click)="logout()" class="text-900 font-medium inline-flex align-items-center cursor-pointer lg:px-3 text-700 hover:text-primary">
+                            <a *ngIf="isLoggedIn" (click)="toggleMenu()" class="a-account">
                                 <i class="pi pi-sign-out text-xl"></i> <span>Se déconnecter</span>
                             </a>
                         </li>
@@ -60,15 +54,16 @@
             </li>
             <li class="flex flex-auto lg:flex-initial justify-content-center">
 
-                <a pRipple pStyleClass="@next" enterClass="hidden" enterActiveClass="scalein" leaveToClass="hidden"
+                <a (click)="toggleCart()"  pRipple pStyleClass="@next" enterClass="hidden" enterActiveClass="scalein" leaveToClass="hidden"
                     leaveActiveClass="fadeout"
                     class="p-ripple p-element text-900 font-medium inline-flex align-items-center cursor-pointer px-1 lg:px-3 hover:text-primary"><i
                         pbadge="" class="p-element pi pi-shopping-cart text-xl p-overlay-badge"><span id="pr_id_9_badge"
                             class="p-badge p-component p-badge-dot"></span></i><span class="hidden">Mon Panier</span><span
                         class="p-ink" style="height: 79px; width: 79px; top: -11.5px; left: -7.5px;"></span></a>
 
-                        <div class="border-round surface-overlay p-4 shadow-2 absolute right-0 top-100 z-1 w-20rem origin-top hidden">
-                            <span class="text-900 font-medium mb-3 block">Mon Panier ({{ cartItems.length }} articles)</span>
+                        <div [ngClass]="{'hidden': !isCartVisible}" 
+                        class="border-round surface-overlay p-4 shadow-2 absolute right-0 top-100 z-1 w-20rem origin-top">
+                                                <span class="text-900 font-medium mb-3 block">Mon Panier ({{ cartItems.length }} articles)</span>
                             <div *ngFor="let item of cartItems" class="flex align-items-center border-bottom-1 surface-border pb-3">
                               <img [src]="item.image" class="w-4rem flex-shrink-0 shadow-1" alt="{{ item.name }}">
                               <div class="flex flex-column pl-3">
@@ -108,3 +103,6 @@
                     class="p-ink"></span></a></li>
     </ul>
 </div>
+
+
+    

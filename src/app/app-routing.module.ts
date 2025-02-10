@@ -15,6 +15,7 @@ import { DashboardComponent } from './Admin/dashboard/dashboard.component';
 import { OrdersComponent } from './Admin/orders/orders.component';
 import { ProductsComponent } from './Admin/products/products.component';
 import { AdminComponent } from './Admin/admin/admin.component';
+import { ActivationComponent } from './components/auth/activation/activation.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,9 @@ const routes: Routes = [
       { path: 'cart', component: CartComponent },
 
       { path: 'checkout', component: CheckoutComponent },
+      { path: 'register', component: RegisterComponent },
+      { path: 'login', component: LoginComponent },
+      { path: 'activation', component: ActivationComponent }, 
 
    
     ],
@@ -46,8 +50,7 @@ const routes: Routes = [
   ]
   },
   { path: '', redirectTo: '/admin', pathMatch: 'full' },
-  { path: 'register', component: RegisterComponent },
-  { path: 'login', component: LoginComponent },
+ 
 
   { path: '**', redirectTo: '/notfound' },
 

@@ -21,6 +21,7 @@
         <img [src]="product.imageUrl" alt="Product Image" class="product-image" /> 
         <h3>{{ product.name }}</h3>
         <p>{{ product.brand }}</p>
+        <p>{{ product.category }}</p>
       <p>{{ product.description }}</p>
       <span class="price">{{ product.price }} DHS</span>
       <button class="btn-secondary" (click)="viewProduct(product.id)">Voir plus</button>

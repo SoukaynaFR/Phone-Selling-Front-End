@@ -1,0 +1,14 @@
+<div class="activation-container">
+    <div class="activation-box">
+      <h2>Activation du compte</h2>
+      <p>Un code à 4 chiffres a été envoyé à votre email. Veuillez l’entrer ci-dessous :</p>
+  
+      <form (ngSubmit)="activateAccount()">
+        <input type="text" [(ngModel)]="code" name="code" maxlength="4" placeholder="🔢 Entrez votre code" required />
+        <button type="submit" class="activate-button">🔓 Activer</button>
+      </form>
+  
+      <p *ngIf="message" [ngClass]="{'success': isSuccess, 'error': !isSuccess}">{{ message }}</p>
+    </div>
+  </div>
+  

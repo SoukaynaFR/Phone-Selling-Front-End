@@ -1,17 +1,24 @@
-<div class="login-container">
-    <h2>Inscription</h2>
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-        <div>
-          <label for="email">Email</label>
-          <input id="email" formControlName="email" type="email" />
-        </div>
-        
-        <div>
-          <label for="password">Password</label>
-          <input id="password" formControlName="password" type="password" />
-        </div>
-        
-        <button type="submit">Login</button>
-      </form>
-      
+<div class="container">
+  <div class="image-section">
+    <img src="../../../../assets/Side Image.png" alt="Shopping illustration" />
+  </div>
+  <div class="form-section">
+    <h2>Se connecter</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+      <input 
+        type="text" 
+        formControlName="email" 
+        placeholder="Email" 
+        required
+      />
+      <input 
+        type="password" 
+        formControlName="mdp" 
+        placeholder="Mot de passe" 
+        required 
+      />
+      <button type="submit" class="create-account" [disabled]="loginForm.invalid">Se connecter</button>
+    </form>
+    <p>Vous n'avez pas de compte? <a (click)="redirectToRegister()">Créer un compte</a></p>
+  </div>
 </div>
