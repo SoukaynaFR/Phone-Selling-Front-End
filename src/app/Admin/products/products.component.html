@@ -7,11 +7,28 @@
     <h3>Add New Product</h3>
     <form (ngSubmit)="addProduct()">
       <input type="text" [(ngModel)]="newProduct.name" placeholder="Product Name" name="name" required />
-      <input type="text" [(ngModel)]="newProduct.company" placeholder="Company (e.g., Samsung, Apple)" name="company" required />
+      <input type="text" [(ngModel)]="newProduct.brand" placeholder="Brand" name="brand" required />
       <input type="text" [(ngModel)]="newProduct.category" placeholder="Category" name="category" required />
+      <input type="text" [(ngModel)]="newProduct.description" placeholder="Description" name="description" required />
       <input type="number" [(ngModel)]="newProduct.price" placeholder="Price" name="price" required />
+      <input type="number" [(ngModel)]="newProduct.inventory" placeholder="Inventory" name="inventory" required />
       <button type="submit">Add Product</button>
       <button type="button" (click)="showAddProductForm = false">Cancel</button>
+    </form>
+  </div>
+
+  <!-- Edit Product Form -->
+  <div *ngIf="selectedProduct" class="edit-product-form">
+    <h3>Edit Product</h3>
+    <form (ngSubmit)="updateProduct()">
+      <input type="text" [(ngModel)]="selectedProduct.name" placeholder="Product Name" name="editName" required />
+      <input type="text" [(ngModel)]="selectedProduct.brand" placeholder="Brand" name="editBrand" required />
+      <input type="text" [(ngModel)]="selectedProduct.category" placeholder="Category" name="editCategory" required />
+      <input type="text" [(ngModel)]="selectedProduct.description" placeholder="Description" name="editDescription" required />
+      <input type="number" [(ngModel)]="selectedProduct.price" placeholder="Price" name="editPrice" required />
+      <input type="number" [(ngModel)]="selectedProduct.inventory" placeholder="Inventory" name="editInventory" required />
+      <button type="submit">Edit</button>
+      <button type="button" (click)="selectedProduct = null">Cancel</button>
     </form>
   </div>
 
@@ -20,10 +37,11 @@
     <thead>
     <tr>
       <th>ID</th>
-      <th>Name</th>
-      <th>Company</th>
-      <th>Category</th>
-      <th>Price</th>
+      <th>Nom</th>
+      <th>Marque</th>
+      <th>Catégorie</th>
+      <th>Description</th>
+      <th>Prix</th>
       <th>Actions</th>
     </tr>
     </thead>
@@ -31,12 +49,14 @@
     <tr *ngFor="let product of products">
       <td>{{ product.id }}</td>
       <td>{{ product.name }}</td>
-      <td>{{ product.company }}</td>
+      <td>{{ product.brand }}</td>
       <td>{{ product.category }}</td>
+      <td>{{ product.description }}</td>
       <td>{{ product.price | currency }}</td>
       <td>
         <button (click)="editProduct(product)">✏️ Edit</button>
-        <button (click)="deleteProduct(product.id)">❌ Delete</button>
+        <button (click)="deleteProduct(product.id)" class="delete-button">🗑️ Delete</button>
+
       </td>
     </tr>
     </tbody>
