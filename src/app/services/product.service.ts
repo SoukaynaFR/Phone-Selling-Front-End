@@ -5,7 +5,7 @@ import { map, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ProductService {
-  private apiUrl = 'http://localhost:8081/product'; // Assure-toi que ton backend tourne sur ce port
+  private apiUrl = 'http://localhost:8081/product';
 
   constructor(private http: HttpClient) {}
 

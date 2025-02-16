@@ -15,6 +15,9 @@ import { DashboardComponent } from './Admin/dashboard/dashboard.component';
 import { OrdersComponent } from './Admin/orders/orders.component';
 import { ProductsComponent } from './Admin/products/products.component';
 import { AdminComponent } from './Admin/admin/admin.component';
+import { ActivationComponent } from './components/auth/activation/activation.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { BestOffersComponent } from './components/best-offers/best-offers.component';
 
 const routes: Routes = [
   {
@@ -27,10 +30,16 @@ const routes: Routes = [
       },
       { path: 'product/:id', component: SingleProductComponent },
       { path: 'all-products', component: AllProductsComponent },
+      { path: 'Related-Products', component: BestOffersComponent },
       { path: 'search', component: SearchComponent },
       { path: 'cart', component: CartComponent },
 
       { path: 'checkout', component: CheckoutComponent },
+      { path: 'register', component: RegisterComponent },
+      { path: 'login', component: LoginComponent },
+      { path: 'activation', component: ActivationComponent },
+      { path: 'profil', component: ProfileComponent }, 
+ 
 
    
     ],
@@ -46,8 +55,7 @@ const routes: Routes = [
   ]
   },
   { path: '', redirectTo: '/admin', pathMatch: 'full' },
-  { path: 'register', component: RegisterComponent },
-  { path: 'login', component: LoginComponent },
+ 
 
   { path: '**', redirectTo: '/notfound' },
 

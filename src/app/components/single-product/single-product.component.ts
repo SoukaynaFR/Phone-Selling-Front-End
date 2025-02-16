@@ -3,7 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';  // Import ApiService
 import { MessageService } from 'primeng/api';
 import { ProductService } from '../../services/product.service';
-
+import { CartService } from '../../services/cart.service';
+import { BestOffersModule } from '../best-offers/best-offers.module';
 
 @Component({
   selector: 'app-single-product',
@@ -15,11 +16,13 @@ export class SingleProductComponent implements OnInit {
   relatedProducts: any[] = [];  // List of related products
   productId: string | null = null;
   quantity: number = 1; // Default quantity
+  cart: any;
 
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
-    private apiService: ApiService,  // Inject ApiService
+    private apiService: ApiService, 
+    private cartService: CartService, 
     private messageService: MessageService
   ) {}
 
@@ -80,24 +83,34 @@ export class SingleProductComponent implements OnInit {
       return;
     }
   
-    this.apiService.addItemToCart(this.product.id, this.quantity).subscribe(
-      (response) => {
-        console.log('Produit ajouté au panier :', response);
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Ajouté au panier',
-          detail: 'Le produit a été ajouté à votre panier.',
-        });
+    this.apiService.addItemToCart(this.product.id, this.quantity).subscribe({
+      next: (response) => {
+        console.log("Réponse complète de l'API :", response);
+        if (response.status === 200) {
+          console.log("Produit ajouté avec succès !");
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Ajouté au panier',
+            detail: 'Le produit a été ajouté à votre panier.',
+          });
+          this.updateCart(); // Mets à jour l'affichage du panier
+        } else {
+          console.error("Problème avec l'ajout au panier, statut :", response.status);
+        }
       },
-      (error) => {
-        console.error('Erreur lors de l\'ajout au panier :', error);
+      error: (err) => {
         this.messageService.add({
           severity: 'error',
           summary: 'Erreur',
           detail: 'Une erreur est survenue lors de l\'ajout au panier.',
         });
+        console.error("Erreur lors de l'ajout au panier :", err);
+        console.error("Détails de l'erreur :", err.error); // Affiche la réponse réelle
       }
-    );
+    });
   }
   
+  updateCart(): void {
+    console.log("Rafraîchissement du panier...");
+  }  
 }

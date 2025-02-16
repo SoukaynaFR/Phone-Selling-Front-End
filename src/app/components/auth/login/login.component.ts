@@ -11,6 +11,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   errorMessage: string = '';
+  isLoggedIn!: boolean;
 
   constructor(
     private fb: FormBuilder,
@@ -20,33 +21,45 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]], // Change here
-      password: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]], 
+      mdp: ['', [Validators.required]],
     });
-    
   }
 
-  onSubmit() {
+  login() {
+
     if (this.loginForm.invalid) {
-      return; // Early exit if form is invalid
+      console.error('Formulaire invalide', this.loginForm.errors);
+      return;
     }
 
     const loginPayload = {
-      email: this.loginForm.value.email, // Change here
-      password: this.loginForm.value.password,
+      email: this.loginForm.value.email,
+      password: this.loginForm.value.mdp,  
     };
-    
+
+    console.log('Données envoyées au backend:', loginPayload);
 
     this.authService.login(loginPayload).subscribe(
       (response: any) => {
-        const token = response.token;
-        localStorage.setItem('token', token); // Store the token in localStorage
-        this.router.navigate(['']); // Redirect after login
+        console.log('Réponse de l\'API:', response);
+        if (response && response.bearer) {
+          localStorage.setItem('token', response.bearer);
+          this.router.navigate(['']);
+        } else {
+          this.errorMessage = 'Aucun token reçu.';
+          console.error('Erreur: Aucun token dans la réponse', response);
+        }
       },
       (error) => {
-        this.errorMessage = 'Login failed. Please check your credentials.';
-        console.error('Login failed', error);
+        this.errorMessage = 'Échec de la connexion. Vérifiez vos identifiants.';
+        console.error('Erreur API:', error);
       }
     );
+    
+  }
+
+  redirectToRegister() {
+    this.router.navigate(['/register']);
   }
 }

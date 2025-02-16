@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from 'src/app/services/cart.service';
+import { ApiService } from 'src/app/services/api.service';
+import { ChangeDetectorRef } from '@angular/core';
+
 
 @Component({
   selector: 'app-cart',
@@ -8,36 +11,119 @@ import { CartService } from 'src/app/services/cart.service';
 })
 export class CartComponent implements OnInit {
   cartItems: any[] = [];
+  
+  
   totalPrice: number = 0;
+  
 
-  constructor(private cartService: CartService) {}
+  constructor(private cartService: CartService ,private apiService: ApiService ,  private cdr: ChangeDetectorRef) {}
+
+  
 
   ngOnInit(): void {
-    this.cartItems = this.cartService.getCartItems();
-    this.calculateTotalPrice();
+    this.cartService.getCart().subscribe((cart: any) => {
+      // this.cartItems = cart.items;  
+      this.cartItems = cart.items.sort((a:any, b:any) => a.id - b.id);
+      this.totalPrice = cart.totalAmount || 0; 
+      this.cartService.updateCart();
+    
+    });
+  
+  }
+  
+  // ✅ Supprimer un article du panier
+  removeItemFromCart(productId: number): void {
+    // Appel à la méthode du service pour supprimer l'article
+    // console.log(localStorage.getItem('token'));
+    // this.apiService.removeItemFromCart(productId);
+    this.apiService.removeItemFromCart(productId).subscribe(
+      (response) => {
+        console.log('Product removed from cart successfully mis à jour avec succès :', response);
+        // Vérifier si la réponse contient des erreurs spécifiques
+        if (!response || response.error) {
+          console.error('Error removing product from cart', response.error);
+          return;
+        }
+  
+        this.cartService.getCart().subscribe((cart: any) => {
+          this.cartItems = cart.items.sort((a:any, b:any) => a.id - b.id);
+          this.totalPrice = cart.totalAmount || 0; 
+          this.cartService.updateCart();
+        
+        });
+        // Forcer Angular à détecter les changements
+        this.cdr.detectChanges();
+      })
+
+
   }
 
-  // Update the total price whenever the cart items change
-  calculateTotalPrice(): void {
-    this.totalPrice = this.cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
-  }
+  
+  // updateItem(productId: number, quantity: number): void {
+  //   const token = localStorage.getItem('jwt_token') || ''; // Récupérer le token JWT depuis localStorage
+  //   this.apiService.updateCartItem(productId, quantity, token).subscribe(
+  //     (response) => {
+  //       console.log('Produit mis à jour avec succès :', response);
+     
+  //         const cartItem = this.cartItems.find(item => item.product.id === productId);
+  //         if (cartItem) {
+  //           cartItem.quantity = quantity;
+  //         }
 
-  // Remove an item from the cart
-  removeItemFromCart(itemId: number): void {
-    this.cartService.removeItemFromCart(itemId);
-    this.cartItems = this.cartService.getCartItems(); // Refresh the cart items list
-    this.calculateTotalPrice(); // Recalculate the total price
-  }
+  //     // Forcer Angular à détecter les changements
+  //     this.cdr.detectChanges();
 
-  // Update the quantity of an item in the cart
-  updateQuantity(itemId: number, quantity: number): void {
-    this.cartService.updateQuantity(itemId, quantity);
-    this.cartItems = this.cartService.getCartItems(); // Refresh the cart items list
-    this.calculateTotalPrice(); // Recalculate the total price
-  }
+  //     // Recalculer le prix total après mise à jour de la quantité
+  //     // this.calculateTotal();
+  //       },
+  //  (error) => {
+  //         console.error('Erreur lors de la mise à jour du produit:', error);
+  //       }
+     
 
-  // Proceed to Checkout (to be implemented)
-  proceedToCheckout(): void {
-    // Logic for checkout, e.g., navigate to a checkout page
+  //   );
+  // }
+
+
+  updateItem(productId: number, quantity: number): void {
+    const token = localStorage.getItem('jwt_token') || ''; 
+
+    this.apiService.updateCartItem(productId, quantity, token).subscribe(
+      (response) => {
+        console.log('Produit mis à jour avec succès :', response);
+        // Vérifier si la réponse contient des erreurs spécifiques
+        if (!response || response.error) {
+          console.error('Erreur dans la réponse de l\'API', response);
+          return;
+        }
+        // Créer une nouvelle liste de cartItems avec la quantité mise à jour
+        this.cartItems = this.cartItems.map(item => {
+          if(item.product.id === productId ){
+            item.quantity = quantity
+          }
+          return item
+        }
+          
+          // ? { ...item, quantity }  // Remplacer l'élément avec une nouvelle référence
+          // : item
+        );
+  
+        this.cartService.getCart().subscribe((cart: any) => {
+          this.cartItems = cart.items.sort((a:any, b:any) => a.id - b.id);
+          this.totalPrice = cart.totalAmount || 0; 
+          this.cartService.updateCart();
+        
+        });
+        // Forcer Angular à détecter les changements
+        this.cdr.detectChanges();
+  
+        // Recalculer le prix total après mise à jour de la quantité
+        // this.calculateTotal();
+      },
+      // (error) => {
+      //   console.error('Erreur lors de la mise à jour du produit:', error);
+      // }
+    );
   }
+  
 }

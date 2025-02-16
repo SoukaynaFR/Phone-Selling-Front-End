@@ -15,17 +15,9 @@
         <p class="product-description">{{ product.description }}</p>
         <p class="product-brand">{{ product.brand }}</p>
         <div class="product-price">
-          <span>{{ product.price }} €</span>
+          <span>{{ product.price }} DHS</span>
         </div>
-        <!-- <div class="product-specs">
-          <h3>Caractéristiques :</h3>
-          <ul>
-            <li><strong>RAM:</strong> {{ product.specifications.ram }}</li>
-            <li><strong>Processeur:</strong> {{ product.specifications.processor }}</li>
-            <li><strong>Stockage:</strong> {{ product.specifications.storage }}</li>
-            <li><strong>Batterie:</strong> {{ product.specifications.battery }}</li>
-          </ul>
-        </div> -->
+
         <div class="quantity-selector">
           <button class="quantity-btn" (click)="decreaseQuantity()">-</button>
           <input type="text" [value]="quantity" readonly class="quantity-input" />
@@ -43,14 +35,9 @@
     <!-- Related Products Section -->
     <section class="related-products">
       <h2>Produits similaires</h2>
-      <div class="product-list">
-        <div class="product-item" *ngFor="let relatedProduct of relatedProducts">
-          <img [src]="relatedProduct.image" alt="Related product" />
-          <h3>{{ relatedProduct.name }}</h3>
-          <p>{{ relatedProduct.price }} €</p>
-          <!-- <button class="btn-secondary" (click)="viewProduct(relatedProduct.id)">Voir</button> -->
-        </div>
-      </div>
+      <app-best-offers></app-best-offers>
+
     </section>
+
   </div>
   

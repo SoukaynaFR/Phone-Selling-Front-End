@@ -4,15 +4,20 @@
     <img src="../../../../assets/Side Image.png" alt="Shopping illustration" />
   </div>
   <div class="form-section">
-    <h2>Create an account</h2>
-    <p>Enter your details below</p>
+    <h2>Créer un compte</h2>
+    <p>Entrez vos informations ci-dessous</p>
     <form (ngSubmit)="register()">
-      <input type="text" [(ngModel)]="user.nom" name="nom" placeholder="Name" required />
-      <input type="text" [(ngModel)]="user.email" name="email" placeholder="Email or Phone Number" required />
-      <input type="password" [(ngModel)]="user.mdp" name="mdp" placeholder="Password" required />
+      <input type="text" [(ngModel)]="user.prenom" name="prenom" placeholder="Prénom" required />
+      <input type="text" [(ngModel)]="user.nom" name="nom" placeholder="Nom" required />
+      <input type="text" [(ngModel)]="user.email" name="email" placeholder="Email" required />
+      <input type="password" [(ngModel)]="user.mdp" name="mdp" placeholder="Mot de passe" required />
       
-      <button type="submit" class="create-account">Create Account</button>
+      <button type="submit" class="create-account">Créer un compte</button>
     </form>
-    <p>Already have an account? <a href="#">Log in</a></p>
+    <div *ngIf="message" [ngClass]="{'success-alert': isSuccess, 'error-alert': !isSuccess}">
+      {{ message }}
+    </div>
+    
+    <p>Vous avez déjà un compte ? <a (click)="redirectToLogin()">Connectez-vous</a></p>
   </div>
 </div>

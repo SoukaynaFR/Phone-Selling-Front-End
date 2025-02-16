@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import { Component , OnInit, HostListener, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserService } from '../../services/user.service';
+import { AuthService } from '../../services/auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-sidebar',
@@ -7,17 +10,19 @@ import { Router } from '@angular/router';
   styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent {
-  isSidebarOpen = true; // Start open or closed as desired
-  private router: any;
+  isSidebarOpen = true; 
+  isLoggedIn: boolean = false;
 
+  constructor(private UserService: UserService ,
+    private router: Router,
+    private authService: AuthService,  private eRef: ElementRef) {}
   toggleSidebar() {
     this.isSidebarOpen = !this.isSidebarOpen;
   }
+  
   logout() {
-    // Perform logout logic (clear localStorage/sessionStorage, etc.)
-    localStorage.clear();
-
-    // Redirect to login page
-    this.router.navigate(['/login']);
-  }
+    localStorage.removeItem('token');
+this.isLoggedIn = false;
+this.router.navigateByUrl('/'); 
+}  
 }

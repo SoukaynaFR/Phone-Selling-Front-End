@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -14,27 +15,36 @@ export class RegisterComponent {
     nom: '',
     prenom: '',
   };
+message: any;
+isSuccess: any;
 
-  constructor(private authService: AuthService, private http: HttpClient) {}
-
+  constructor(private authService: AuthService, private http: HttpClient, private router: Router) {}
   register() {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
     };
+  
+    this.http.post('http://localhost:8081/inscription', this.user, { responseType: 'text' }).subscribe(
+      (response) => {
+        console.log('Response:', response);
+        alert('✅ Compte créé avec succès ! Un code d’activation a été envoyé à votre email.');
 
-    // Utilisation du service pour faire la requête POST
-    this.http.post('http://localhost:8081/inscription', this.user, httpOptions).subscribe({
-      next: (response) => {
-        console.log('Inscription réussie', response);
-        alert('Inscription réussie');
+  
+           // Redirection vers la page d'activation
+           this.router.navigate(['/activation']);
       },
-      error: (error) => {
-        console.error('Erreur lors de l’inscription', error);
-        alert('Erreur : ' + (error?.error?.message || error.message || 'Erreur inconnue'));
-      },
-    });
+      (error) => {
+        console.log(error);
+        alert('❌ Erreur lors de la création du compte.');
+      }
+    );
   }
+  
+  
 
+  redirectToLogin() {
+    this.router.navigate(['/login']);
+  }
 }

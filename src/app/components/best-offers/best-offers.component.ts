@@ -4,15 +4,13 @@ import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { CartService } from '../../services/cart.service';
 import { ApiService } from '../../services/api.service';
-import { BestOffersModule } from '../best-offers/best-offers.module';
-
 
 @Component({
-  selector: 'app-landing-page',
-  templateUrl: './landing-page.component.html',
-  styleUrls: ['./landing-page.component.scss']
+  selector: 'app-best-offers',
+  templateUrl: './best-offers.component.html',
+  styleUrls: ['./best-offers.component.scss']
 })
-export class LandingPageComponent implements OnInit {
+export class BestOffersComponent {
   products: any[] = [];
   bestOffers: any[] = [];
   filteredProducts: any[] = [];
@@ -25,6 +23,7 @@ export class LandingPageComponent implements OnInit {
   productId: string | null = null;
 
 
+
   constructor(
     private productService: ProductService,
     private router: Router,
@@ -35,19 +34,12 @@ export class LandingPageComponent implements OnInit {
 
 
   ngOnInit() {
-    this.productService.getAllProducts().subscribe((data) => {
-      // Traitement des données pour ajouter l'imageUrl
-      this.products = data.map(product => {
-        return {
-          ...product,
-          imageUrl: product.download_url || 'https://img.freepik.com/free-photo/blank-phone-screen-purple-background_53876-143196.jpg?uid=R87884697&semt=ais_hybrid'  // Image par défaut si aucune URL n'est fournie
-        };
-      });
-      this.filteredProducts = this.products;
+  
       this.loadBestOffers();
-    });
+   
 
   }
+
   loadBestOffers() {
     this.productService.getRandomProducts(16).subscribe({
       next: (products) => {
@@ -58,20 +50,9 @@ export class LandingPageComponent implements OnInit {
       }
     });
   }
-  filterByCategory(category: string) {
-    this.filteredProducts = this.products.filter(product => product.category === category);
-  }
 
 
-  filterProducts() {
-    this.filteredProducts = this.products.filter(product => {
-      const matchesCategory = this.selectedCategory ? product.category === this.selectedCategory : true;
-      const matchesPrice = this.priceRange ? product.price <= this.priceRange : true;
-      return matchesCategory && matchesPrice;
-    });
-  }
-  
-  viewProduct(productId: number) {
+  viewOffer(productId: number) {
     this.router.navigate(['/product', productId]);  
   }
 
@@ -98,7 +79,6 @@ addToCart(): void {
           summary: 'Ajouté au panier',
           detail: 'Le produit a été ajouté à votre panier.',
         });
-        this.updateCart(); // Mets à jour l'affichage du panier
       } else {
         console.error("Problème avec l'ajout au panier, statut :", response.status);
       }
@@ -116,25 +96,23 @@ addToCart(): void {
 }
 
 
-  prevSlide() {
-    const carousel = document.querySelector('.carousel-inner') as HTMLElement;
-    if (carousel) {
-      carousel.scrollBy({ left: -300, behavior: 'smooth' });
-    }
+prevSlide() {
+  const carousel = document.querySelector('.carousel-inner') as HTMLElement;
+  if (carousel) {
+    carousel.scrollBy({ left: -300, behavior: 'smooth' });
   }
+}
 
-  nextSlide() {
-    const carousel = document.querySelector('.carousel-inner') as HTMLElement;
-    if (carousel) {
-      carousel.scrollBy({ left: 300, behavior: 'smooth' });
-    }
+nextSlide() {
+  const carousel = document.querySelector('.carousel-inner') as HTMLElement;
+  if (carousel) {
+    carousel.scrollBy({ left: 300, behavior: 'smooth' });
   }
+}
 
-  goToAllProducts() {
-    this.router.navigate(['/all-products']); // Assurez-vous que la route "/products" existe
-  }
-  
-  updateCart(): void {
-    console.log("Rafraîchissement du panier...");
-  } 
+goToAllProducts() {
+  this.router.navigate(['/all-products']); // Assurez-vous que la route "/products" existe
+}
+
+
 }

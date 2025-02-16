@@ -1,10 +1,10 @@
 <div class="products-section">
-  <h2>Product Catalog</h2>
-  <button (click)="showAddProductForm = true">➕ Add Product</button>
+  <h2>Catalogue des Produits</h2>
+  <button class="btn-add" (click)="showAddProductForm = true">➕ Ajouter un Produit</button>
 
-  <!-- Add Product Form -->
+  <!-- Formulaire Ajouter un Produit -->
   <div *ngIf="showAddProductForm" class="add-product-form">
-    <h3>Add New Product</h3>
+    <h3>Ajouter un Nouveau Produit</h3>
     <form (ngSubmit)="addProduct()">
       <input type="text" [(ngModel)]="newProduct.name" placeholder="Product Name" name="name" required />
       <input type="text" [(ngModel)]="newProduct.brand" placeholder="Brand" name="brand" required />
@@ -44,6 +44,14 @@
       <th>Prix</th>
       <th>Actions</th>
     </tr>
+      <tr>
+        <th>ID</th>
+        <th>Nom</th>
+        <th>Marque</th>
+        <th>Catégorie</th>
+        <th>Prix</th>
+        <th>Actions</th>
+      </tr>
     </thead>
     <tbody>
     <tr *ngFor="let product of products">
