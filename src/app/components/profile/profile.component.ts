@@ -39,9 +39,5 @@ export class ProfileComponent implements OnInit {
     this.isLoggedIn = false;
     this.router.navigateByUrl('/'); 
   }  
-  // ngOnDestroy() {
-  //   this.authSubscription.unsubscribe();    
-  //   this.cartSubscription.unsubscribe();
 
-  // }
 }

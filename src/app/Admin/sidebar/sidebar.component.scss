@@ -12,57 +12,87 @@
   align-items: center;
   justify-content: space-between; // Push logout to bottom
 }
-
-.logo {
-  font-size: 1.2rem; // Adjusted size
-  font-weight: bold;
-  margin-bottom: 20px;
+/* Sidebar */
+.sidebar {
+  width: 240px;
+  height: 100vh;
+  background-color: #001f3f;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+  position: fixed;
+  left: 0;
+  top: 0;
 }
 
+/* Logo */
+.logo {
+  display: flex;
+  margin-bottom: 30px;
+  cursor: pointer;
+}
+
+.logo img {
+  width: 200px; 
+  height: auto;
+}
+
+/* Menu */
 .menu {
   list-style: none;
   padding: 0;
   width: 100%;
+  gap: 20px;
 }
 
 .menu li {
-  margin: 10px 0;
+  width: 100%;
 }
 
 .menu a {
-  text-decoration: none;
-  color: white;
-  font-size: 1rem;
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 10px;
-  width: 100%;
-  transition: background 0.3s;
+  padding: 12px 20px;
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  transition: background 0.3s ease-in-out, transform 0.2s ease;
+}
+
+.menu a i {
+  margin-right: 12px;
+  font-size: 18px;
 }
 
 .menu a:hover {
-  background-color: rgba(255, 255, 255, 0.2);
-  border-radius: 5px;
+  background-color: #1a252f;
+  border-left: 4px solid #e67e22;
+  transform: translateX(5px);
 }
 
-/* Logout button */
+
+/* Bouton de déconnexion */
 .logout-btn {
-  background: none;
-  border: none;
+  background: linear-gradient(45deg, #8e44ad, #e84393);
   color: white;
-  font-size: 1rem;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px;
-  width: 100%;
-  text-align: left;
-  transition: background 0.3s;
+  margin-top: auto;
+  margin-bottom: 20px;
+  transition: background 0.3s ease-in-out, transform 0.2s ease;
+}
+
+.logout-btn i {
+  margin-right: 8px;
 }
 
 .logout-btn:hover {
-  background-color: rgba(255, 255, 255, 0.2);
-  border-radius: 5px;
+  background-color: #c0392b;
+  transform: scale(1.05);
 }
