@@ -24,7 +24,9 @@ import { RegisterComponent } from './components/auth/register/register.component
 import { LoginComponent } from './components/auth/login/login.component';
 import { ProductService } from './services/product.service';
 import { AllProductsComponent } from './components/all-products/all-products.component';
-import { ActivationComponent } from './components/auth/activation/activation.component'
+import { ActivationComponent } from './components/auth/activation/activation.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { BestOffersModule  } from './components/best-offers/best-offers.module'
 
 @NgModule({
   declarations: [
@@ -41,10 +43,13 @@ import { ActivationComponent } from './components/auth/activation/activation.com
     RegisterComponent,
     LoginComponent,
     AllProductsComponent,
-    ActivationComponent
+    ActivationComponent,
+    ProfileComponent,
+    
     
   ],
   imports: [
+    BestOffersModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -53,6 +58,7 @@ import { ActivationComponent } from './components/auth/activation/activation.com
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+    
 
   ],
   providers: [MessageService,

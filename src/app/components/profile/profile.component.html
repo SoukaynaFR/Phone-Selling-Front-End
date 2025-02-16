@@ -1,0 +1,23 @@
+<div *ngIf="user" class="profile-container">
+  <h2> Votre Profil</h2>
+  <hr>
+  <div class="profile-details">
+    <div class="avatar">
+      <span>{{ user.prenom.charAt(0) }}{{ user.nom.charAt(0) }}</span>
+    </div>
+    <div class="user-info">
+      <p><strong>Prénom :</strong> {{ user.prenom }}</p>
+      <p><strong>Nom :</strong> {{ user.nom }}</p>
+      <p><strong>Email :</strong> {{ user.email }}</p>
+    </div>
+    <a (click)="logout()" class="a-account">
+      <i class="pi pi-sign-out text-xl"></i> <span>Se déconnecter</span>
+  </a>
+  </div>
+  <hr>
+  <section class="related-products">
+    <h2>Produits Que Vous Pourrez Aimez</h2>
+    <app-best-offers></app-best-offers>
+
+  </section>
+</div>

@@ -2,38 +2,43 @@
 
   <div class="cart-container">
     <!-- Cart Items Section -->
-    <div class="cart-items-section">
+    <div *ngIf="cartItems.length  > 0"  class="cart-items-section">
       <h2>Mon Panier</h2>
       <div *ngFor="let item of cartItems" class="cart-item">
         <div class="cart-item-image">
-          <img [src]="item.image" alt="{{ item.name }}">
+          <img [src]="item.product.images" alt="{{ item.product.name }}">
         </div>
         <div class="cart-item-details">
-          <h3>{{ item.name }}</h3>
+          <h3>{{ item.product.name }}</h3>
+          <span>{{ item.product.id }}</span>
+          <span>{{ item.product.brand }}</span>
+          <span>{{ item.product.description }}</span>
+          <span>{{ item.product.category }}</span>
   
           <div class="quantity">
-            <button (click)="updateQuantity(item.id, item.quantity - 1)" [disabled]="item.quantity <= 1">-</button>
+            <button (click)="updateItem(item.product.id, -1)" [disabled]="item.quantity <= 1">-</button>
             <span>{{ item.quantity }}</span>
-            <button (click)="updateQuantity(item.id, item.quantity + 1)">+</button>
+            <button (click)="updateItem(item.product.id, 1)">+</button>
           </div>
   
           <div class="price-details">
-            <span class="price">{{ item.price }} Dhs</span>
+            <span class="price">{{ item.unitPrice }} Dhs</span>
           </div>
-          <button (click)="removeItemFromCart(item.id)" class="remove-item">Supprimer</button>
         </div>
+        <button (click)="removeItemFromCart(item.product.id)" class="remove-item">Supprimer</button>
+
       </div>
     </div>
   
     <!-- Cart Summary Section -->
-    <div class="cart-summary">
+    <div *ngIf="cartItems.length  > 0" class="cart-summary">
       <h3>RÉSUMÉ DU PANIER</h3>
       <div class="summary-item">
         <span>Prix Total</span>
-        <span>{{ totalPrice }} Dhs</span>
+        <span>{{ totalPrice  }} Dhs</span>
       </div>
       <button [routerLink]="'/checkout'" class="order-button">
-        Commander ({{ totalPrice }} Dhs)
+        Commander ({{ totalPrice  }} Dhs)
       </button>
       <p class="return-info">
         Les retours sont faciles. Retour gratuit sous 7 jours.
@@ -49,7 +54,7 @@
         <h3>Votre panier est vide !</h3>
         <p>Parcourez nos catégories et découvrez nos meilleures offres !</p>
     </div>
-    <button pButton pRipple class="p-element p-ripple p-button" [routerLink]="'/shop'">
+    <button pButton pRipple class="p-element p-ripple p-button" [routerLink]="'/'">
         Commencez vos achats
     </button>
   </div>

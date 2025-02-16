@@ -4,7 +4,7 @@ import { ApiService } from 'src/app/services/api.service';  // Import ApiService
 import { MessageService } from 'primeng/api';
 import { ProductService } from '../../services/product.service';
 import { CartService } from '../../services/cart.service';
-
+import { BestOffersModule } from '../best-offers/best-offers.module';
 
 @Component({
   selector: 'app-single-product',

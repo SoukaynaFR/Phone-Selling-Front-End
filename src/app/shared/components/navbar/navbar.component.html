@@ -41,7 +41,7 @@
                             <a *ngIf="!isLoggedIn" (click)="goToRegister()" (click)="toggleMenu()" class="a-account">
                                 <i class="pi pi-user-plus text-xl"></i> <span>Créer un compte</span>
                             </a>
-                            <a *ngIf="isLoggedIn" routerLink="/account" (click)="toggleMenu()" class="a-account">
+                            <a *ngIf="isLoggedIn" routerLink="/profil" (click)="toggleMenu()" class="a-account">
                                 <i class="pi pi-user text-xl"></i> <span>Voir compte</span>
                             </a>
                             <a *ngIf="isLoggedIn" (click)="toggleMenu()" (click)="logout()" class="a-account">

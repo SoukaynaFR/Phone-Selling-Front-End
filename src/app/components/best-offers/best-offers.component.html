@@ -1,0 +1,33 @@
+<!-- best-offers.component.html -->
+<section class="best-offers">
+    <div class="carousel">
+      <div class="carousel-inner" #carousel>
+        <div class="offer-item" *ngFor="let offer of bestOffers">
+  
+          <img *ngIf="offer.image; else defaultImg" [src]="offer.image" alt="{{ offer.name }}"  class="offer-image" />
+          <ng-template #defaultImg>
+            <img src="https://img.freepik.com/free-photo/blank-phone-screen-purple-background_53876-143196.jpg?uid=R87884697&semt=ais_hybrid" alt="Image par défaut" class="offer-image" />
+          </ng-template>
+          <h3>{{ offer.name }}</h3>
+          <p>{{ offer.brand }}</p>
+          <p>{{ offer.description }}</p>
+          <span class="price">{{ offer.price }} DHS</span>
+          <div class="add-to-cart">
+            <button class="btn-secondary" (click)="viewOffer(offer.id)">Voir plus</button>
+            <!-- Bouton "Ajouter au panier" avec icône -->
+            <button class="btn-primary" (click)="selectProduct(offer); addToCart()">
+              <i class="fas fa-cart-plus"></i>
+            </button>
+            
+          </div>  
+        </div>
+      </div>
+      <button class="carousel-btn prev" (click)="prevSlide()">&#10094;</button>
+      <button class="carousel-btn next" (click)="nextSlide()">&#10095;</button>
+    </div>
+  
+    <div class="see-all-container">
+      <button class="see-all-btn" (click)="goToAllProducts()">Voir tous les produits</button>
+    </div>
+  </section>
+  

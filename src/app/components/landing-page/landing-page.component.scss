@@ -480,3 +480,21 @@ p {
   font-size: 14px;
   color: gray;
 }
+
+.add-to-cart{
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-to-cart .btn-primary{
+  cursor: pointer;
+  border: none;
+}
+
+.add-to-cart .btn-primary i {
+  font-size: 26px; 
+  background: none;
+}
