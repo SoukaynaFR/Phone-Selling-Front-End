@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CartService } from 'src/app/services/cart.service';
 import { ApiService } from 'src/app/services/api.service';
 import { ChangeDetectorRef } from '@angular/core';
+import { ProductService } from '../../services/product.service';
 
 
 @Component({
@@ -11,12 +12,13 @@ import { ChangeDetectorRef } from '@angular/core';
 })
 export class CartComponent implements OnInit {
   cartItems: any[] = [];
+  imageUrls: { [key: number]: string } = {};
   
   
   totalPrice: number = 0;
   
 
-  constructor(private cartService: CartService ,private apiService: ApiService ,  private cdr: ChangeDetectorRef) {}
+  constructor(private productService: ProductService,private cartService: CartService ,private apiService: ApiService ,  private cdr: ChangeDetectorRef) {}
 
   
 
@@ -24,12 +26,34 @@ export class CartComponent implements OnInit {
     this.cartService.getCart().subscribe((cart: any) => {
       // this.cartItems = cart.items;  
       this.cartItems = cart.items.sort((a:any, b:any) => a.id - b.id);
+      this.loadImages()
       this.totalPrice = cart.totalAmount || 0; 
       this.cartService.updateCart();
     
     });
   
   }
+
+  loadImages() {
+    this.cartItems.forEach((item) => {
+      if (item.product.images?.length > 0) {
+        const image = item.product.images[0];
+        this.productService.getImageBlob(image.downloadUrl).subscribe(
+          (blob) => {
+            const reader = new FileReader();
+            reader.onload = () => {
+              this.imageUrls[item.id] = reader.result as string;
+            };
+            reader.readAsDataURL(blob); // Convertir le Blob en Data URL
+          },
+          (error) => {
+            console.error("Erreur lors du chargement de l'image", error);
+          }
+        );
+      }
+    });
+  }
+
   
   // ✅ Supprimer un article du panier
   removeItemFromCart(productId: number): void {

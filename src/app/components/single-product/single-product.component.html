@@ -1,43 +1,55 @@
 <div class="single-product">
-    <!-- Product Details Section -->
-    <section class="product-details">
-      <div class="background-circle"></div>
-      <div class="product-image">
-        <img *ngIf="product.image; else defaultImg" [src]="product.image" alt="{{ product.name }}" />
+  <!-- Product Details Section -->
+  <section class="product-details">
+    <div class="background-circle"></div>
+    <div class="product-image">
+      <!-- <img *ngIf="imageUrls; else defaultImg" [src]="product.image" alt="{{ product.name }}" />
 
         <ng-template #defaultImg>
           <img src="https://img.freepik.com/free-photo/blank-phone-screen-purple-background_53876-143196.jpg?uid=R87884697&semt=ais_hybrid" alt="Image par défaut" />
         </ng-template>
-        
+         -->
+
+      <img
+        *ngIf="imageUrls[product.id]; else defaultImg"
+        [src]="imageUrls[product.id]"
+        alt="{{ product.name }}"
+        class="offer-image"
+      />
+
+      <ng-template #defaultImg>
+        <img
+          src="https://img.freepik.com/free-photo/blank-phone-screen-purple-background_53876-143196.jpg?uid=R87884697&semt=ais_hybrid"
+          alt="Image par défaut"
+          class="offer-image"
+        />
+      </ng-template>
+    </div>
+    <div class="product-info">
+      <h1>{{ product.name }}</h1>
+      <p class="product-description">{{ product.description }}</p>
+      <p class="product-brand">{{ product.brand }}</p>
+      <div class="product-price">
+        <span>{{ product.price }} DHS</span>
       </div>
-      <div class="product-info">
-        <h1>{{ product.name }}</h1>
-        <p class="product-description">{{ product.description }}</p>
-        <p class="product-brand">{{ product.brand }}</p>
-        <div class="product-price">
-          <span>{{ product.price }} DHS</span>
-        </div>
 
-        <div class="quantity-selector">
-          <button class="quantity-btn" (click)="decreaseQuantity()">-</button>
-          <input type="text" [value]="quantity" readonly class="quantity-input" />
-          <button class="quantity-btn" (click)="increaseQuantity()">+</button>
-        </div>
-        
-        
-        <div class="add-to-cart">
-          <button class="btn-primary" (click)="addToCart()">Ajouter au panier</button>
-        </div>
-        
+      <div class="quantity-selector">
+        <button class="quantity-btn" (click)="decreaseQuantity()">-</button>
+        <input type="text" [value]="quantity" readonly class="quantity-input" />
+        <button class="quantity-btn" (click)="increaseQuantity()">+</button>
       </div>
-    </section>
-  
-    <!-- Related Products Section -->
-    <section class="related-products">
-      <h2>Produits similaires</h2>
-      <app-best-offers></app-best-offers>
 
-    </section>
+      <div class="add-to-cart">
+        <button class="btn-primary" (click)="addToCart()">
+          Ajouter au panier
+        </button>
+      </div>
+    </div>
+  </section>
 
-  </div>
-  
+  <!-- Related Products Section -->
+  <section class="related-products">
+    <h2>Produits similaires</h2>
+    <app-best-offers></app-best-offers>
+  </section>
+</div>

@@ -19,6 +19,7 @@ export class ProductsComponent implements OnInit {
     image:'',
     inventory: 0
   };
+  file: any = File;
   selectedProduct: any = null;  // Holds the product being edited
   showAddProductForm = false;
 
@@ -57,12 +58,22 @@ export class ProductsComponent implements OnInit {
 
   addProduct() {
     if (this.newProduct.name && this.newProduct.price && this.newProduct.category) {
-      this.productService.addProduct(this.newProduct).subscribe(
+    
+        this.productService.addProduct(this.newProduct).subscribe(
         (response) => {
           console.log('Product added successfully:', response);
-          this.showAddProductForm = false;
-          this.newProduct = { name: '', brand: '', category: '', description: '', price: 0, inventory: 0 };  // Reset form
-          this.loadProducts();
+          this.productService.uploadImage(response.id , this.newProduct.image).subscribe(
+            () => {
+              console.log('Image uploaded successfully');
+              this.showAddProductForm = false;
+              this.newProduct = { name: '', brand: '', category: '', description: '', price: 0, inventory: 0 };  // Reset form
+              this.loadProducts();
+            },
+            (error) => {
+              console.error('Error uploading image:', error);
+            }
+          );
+
         },
         (error) => {
           console.error('Error adding product:', error);
@@ -72,6 +83,15 @@ export class ProductsComponent implements OnInit {
       console.error('Please fill in all required fields.');
     }
   }
+
+  uploadFile(event: any) {
+    if (event.target.files.length > 0) {
+      this.newProduct.image = event.target.files[0];
+      console.log(this.newProduct.image)
+    } else {
+      return;
+    }
+  }
 
   editProduct(product: any) {
     this.selectedProduct = { ...product };  // Clone the product to avoid modifying the original before saving

@@ -16,7 +16,8 @@ export class SingleProductComponent implements OnInit {
   relatedProducts: any[] = [];  // List of related products
   productId: string | null = null;
   quantity: number = 1; // Default quantity
-  cart: any;
+  cart: any; 
+  imageUrls: { [key: number]: string } = {};
 
   constructor(
     private route: ActivatedRoute,
@@ -32,6 +33,19 @@ export class SingleProductComponent implements OnInit {
     this.productService.getProductById(productId).subscribe((product) => {
       
       this.product = product;
+      const image = this.product.images[0];
+      this.productService.getImageBlob(image.downloadUrl).subscribe(
+        (blob) => {
+          const reader = new FileReader();
+          reader.onload = () => {
+            this.imageUrls[this.product.id] = reader.result as string;
+          };
+          reader.readAsDataURL(blob); // Convertir le Blob en Data URL
+        },
+        (error) => {
+          console.error("Erreur lors du chargement de l'image", error);
+        }
+      );
     });
 
     // Charger les produits similaires, si nécessaire

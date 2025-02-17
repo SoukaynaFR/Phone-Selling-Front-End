@@ -1,12 +1,25 @@
 <main>
-
   <div class="cart-container">
     <!-- Cart Items Section -->
-    <div *ngIf="cartItems.length  > 0"  class="cart-items-section">
+    <div *ngIf="cartItems.length > 0" class="cart-items-section">
       <h2>Mon Panier</h2>
       <div *ngFor="let item of cartItems" class="cart-item">
         <div class="cart-item-image">
-          <img [src]="item.product.images" alt="{{ item.product.name }}">
+          <!-- <img src="https://img.freepik.com/free-photo/blank-phone-screen-purple-background_53876-143196.jpg?uid=R87884697&semt=ais_hybrid" alt="{{ item.product.name }}"> -->
+          <img
+            *ngIf="imageUrls[item.product.id]; else defaultImg"
+            [src]="imageUrls[item.product.id]"
+            alt="{{ item.product.name }}"
+            class="offer-image"
+          />
+
+          <ng-template #defaultImg>
+            <img
+              src="https://img.freepik.com/free-photo/blank-phone-screen-purple-background_53876-143196.jpg?uid=R87884697&semt=ais_hybrid"
+              alt="Image par défaut"
+              class="product-image"
+            />
+          </ng-template>
         </div>
         <div class="cart-item-details">
           <h3>{{ item.product.name }}</h3>
@@ -14,51 +27,64 @@
           <span>{{ item.product.brand }}</span>
           <span>{{ item.product.description }}</span>
           <span>{{ item.product.category }}</span>
-  
+
           <div class="quantity">
-            <button (click)="updateItem(item.product.id, -1)" [disabled]="item.quantity <= 1">-</button>
+            <button
+              (click)="updateItem(item.product.id, -1)"
+              [disabled]="item.quantity <= 1"
+            >
+              -
+            </button>
             <span>{{ item.quantity }}</span>
             <button (click)="updateItem(item.product.id, 1)">+</button>
           </div>
-  
+
           <div class="price-details">
             <span class="price">{{ item.unitPrice }} Dhs</span>
           </div>
         </div>
-        <button (click)="removeItemFromCart(item.product.id)" class="remove-item">Supprimer</button>
-
+        <button
+          (click)="removeItemFromCart(item.product.id)"
+          class="remove-item"
+        >
+          Supprimer
+        </button>
       </div>
     </div>
-  
+
     <!-- Cart Summary Section -->
-    <div *ngIf="cartItems.length  > 0" class="cart-summary">
+    <div *ngIf="cartItems.length > 0" class="cart-summary">
       <h3>RÉSUMÉ DU PANIER</h3>
       <div class="summary-item">
         <span>Prix Total</span>
-        <span>{{ totalPrice  }} Dhs</span>
+        <span>{{ totalPrice }} Dhs</span>
       </div>
       <button [routerLink]="'/checkout'" class="order-button">
-        Commander ({{ totalPrice  }} Dhs)
+        Commander ({{ totalPrice }} Dhs)
       </button>
       <p class="return-info">
         Les retours sont faciles. Retour gratuit sous 7 jours.
       </p>
     </div>
   </div>
-  
-  
+
   <!-- Empty  -->
   <div *ngIf="cartItems.length === 0" class="empty-cart-container">
     <div class="empty-cart-message">
-        <i class="pi pi-shopping-cart" style="font-size: 3rem; color: #4357AD;"></i>
-        <h3>Votre panier est vide !</h3>
-        <p>Parcourez nos catégories et découvrez nos meilleures offres !</p>
+      <i
+        class="pi pi-shopping-cart"
+        style="font-size: 3rem; color: #4357ad"
+      ></i>
+      <h3>Votre panier est vide !</h3>
+      <p>Parcourez nos catégories et découvrez nos meilleures offres !</p>
     </div>
-    <button pButton pRipple class="p-element p-ripple p-button" [routerLink]="'/'">
-        Commencez vos achats
+    <button
+      pButton
+      pRipple
+      class="p-element p-ripple p-button"
+      [routerLink]="'/'"
+    >
+      Commencez vos achats
     </button>
   </div>
-  
-  
-
 </main>

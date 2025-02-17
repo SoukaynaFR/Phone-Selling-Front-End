@@ -1,30 +1,53 @@
-
 <!-- Product Filtering and Catalog -->
 <section class="product-catalog">
-    <h2>Découvrez Nos Produits</h2>
-    <div class="filters">
-      <label>Catégorie :</label>
-      <select [(ngModel)]="selectedCategory" (change)="filterProducts()">
-        <option value="">Toutes</option>
-        <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
-      </select>
-      <label>Prix :</label>
-      <input type="range" min="0" max="2000" [(ngModel)]="priceRange" (input)="filterProducts()" />
-      <span>{{ priceRange }} DHS</span>
-    </div>
-  
-    <div class="catalog-list">
-      <div class="catalog-item" *ngFor="let product of filteredProducts">
-        <!-- <img *ngIf="product.images.length > 0" [src]="product.images[0]" alt="Product Image" class="product-image" /> -->
-            <!-- <img *ngIf="product.images.length === 0" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMwAAADACAMAAAB/Pny7AAAAOVBMVEX///+hoaGZmZmenp75+fmmpqbX19e3t7e/v7/t7e3n5+epqanNzc3KysqSkpL8/Pzf39/z8/OwsLBPkmpzAAAC40lEQVR4nO3a6W6rMBCGYbywmmDC/V9sTSAUEiASWGKQ3udXK3EQ3xmPF0qSAAAAAAAAAAAAAAAAAAAAAAAAAAAu4xNvY7o2TZZHVZRXhklNXNmFWbxSKmIUZeoLw1ildBVLWehLw4TKNPHu9iBMNIswYZ72/szdJIU5TUiYUBFbF0V9bpmQEiZpU2WUco8zdxMSJmlDkn7NUY/keNsICePNEEaptDp+NyFhska9FcfvJiRMod9ZTHf8bkLCdGYK447fTUiYx1QZdf/KVI1R6RBm/3F2j19CwiT5WBqT7j1u25m83J67hYTx3oXaKKPTnWdNWhdOLDtzt5Aw4afMGZM+9upSvqYJkz+3LhATJrSDfdq95d+O87euty6TE2Z3F9MfDTI1zt9ma6DJCfPjwtAw0+ydbmyu7xImKfP/pUgX621zlzD+Me0R+jTZ6pH0LmGmhhnTrLbNLcL4pHJaLbjnyoxxizDJs/jIovTainSLML7+zBL+Wft9ncgwtprPVmFWXjbMuNp8b3wkhql0o+fnzapbyRJOcV8DTWCYUpt+KZl+/26YcaB9tY24MN6613ayP9cMw2ilYcZJ4LNtxIWx46HTuHEpqdK1Qfa6RH1sBMSFad/vaUz+GkXzbcxXabrl/llWGJ+Us//4vm22GmZsm9rLDZPYWR1MmoVtjN4aZK9LmsW2RlYYXzfzR+3K7YYZL1F2VhtZYapm+ajdTsMMdG5lhvHPMLSWafbr0l+haz9NAqLC/KzDam3+20ZSmOxIlvmbNkFhykNZ+raRN8zs7wbZMJ0GxITxu6vjj9qMb2vEhDnWMAPjhhlNSphyd6X/WZrh77pCwnh3Jsu7bYSEOdEwY236tzUywrTN2Y+zdOeFVMam7jSVCQnzLCOoJITR8T43vTiM7Q+U0bhrP2v04XilY+kngivDJHkalTvx5c15ZRbVpVmiO/VZJAAAAAAAAAAAAAAAAAAAAAAAAABc4A+lUzEyY9gMcgAAAABJRU5ErkJggg==" alt="Placeholder Image" class="product-image" />-->
-  
-        <img [src]="product.imageUrl" alt="Product Image" class="product-image" /> 
-        <h3>{{ product.name }}</h3>
-        <p>{{ product.brand }}</p>
-        <p>{{ product.category }}</p>
+  <h2>Découvrez Nos Produits</h2>
+  <div class="filters">
+    <label>Catégorie :</label>
+    <select [(ngModel)]="selectedCategory" (change)="filterProducts()">
+      <option value="">Toutes</option>
+      <option *ngFor="let category of categories" [value]="category">
+        {{ category }}
+      </option>
+    </select>
+    <label>Prix :</label>
+    <input
+      type="range"
+      min="0"
+      max="2000"
+      [(ngModel)]="priceRange"
+      (input)="filterProducts()"
+    />
+    <span>{{ priceRange }} DHS</span>
+  </div>
+
+  <div class="catalog-list">
+    <div class="catalog-item" *ngFor="let product of filteredProducts">
+      <!-- <img *ngIf="product.images.length > 0" [src]="product.images[0]" alt="Product Image" class="product-image" /> -->
+      <!-- <img *ngIf="product.images.length === 0" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMwAAADACAMAAAB/Pny7AAAAOVBMVEX///+hoaGZmZmenp75+fmmpqbX19e3t7e/v7/t7e3n5+epqanNzc3KysqSkpL8/Pzf39/z8/OwsLBPkmpzAAAC40lEQVR4nO3a6W6rMBCGYbywmmDC/V9sTSAUEiASWGKQ3udXK3EQ3xmPF0qSAAAAAAAAAAAAAAAAAAAAAAAAAAAu4xNvY7o2TZZHVZRXhklNXNmFWbxSKmIUZeoLw1ildBVLWehLw4TKNPHu9iBMNIswYZ72/szdJIU5TUiYUBFbF0V9bpmQEiZpU2WUco8zdxMSJmlDkn7NUY/keNsICePNEEaptDp+NyFhska9FcfvJiRMod9ZTHf8bkLCdGYK447fTUiYx1QZdf/KVI1R6RBm/3F2j19CwiT5WBqT7j1u25m83J67hYTx3oXaKKPTnWdNWhdOLDtzt5Aw4afMGZM+9upSvqYJkz+3LhATJrSDfdq95d+O87euty6TE2Z3F9MfDTI1zt9ma6DJCfPjwtAw0+ydbmyu7xImKfP/pUgX621zlzD+Me0R+jTZ6pH0LmGmhhnTrLbNLcL4pHJaLbjnyoxxizDJs/jIovTainSLML7+zBL+Wft9ncgwtprPVmFWXjbMuNp8b3wkhql0o+fnzapbyRJOcV8DTWCYUpt+KZl+/26YcaB9tY24MN6613ayP9cMw2ilYcZJ4LNtxIWx46HTuHEpqdK1Qfa6RH1sBMSFad/vaUz+GkXzbcxXabrl/llWGJ+Us//4vm22GmZsm9rLDZPYWR1MmoVtjN4aZK9LmsW2RlYYXzfzR+3K7YYZL1F2VhtZYapm+ajdTsMMdG5lhvHPMLSWafbr0l+haz9NAqLC/KzDam3+20ZSmOxIlvmbNkFhykNZ+raRN8zs7wbZMJ0GxITxu6vjj9qMb2vEhDnWMAPjhhlNSphyd6X/WZrh77pCwnh3Jsu7bYSEOdEwY236tzUywrTN2Y+zdOeFVMam7jSVCQnzLCOoJITR8T43vTiM7Q+U0bhrP2v04XilY+kngivDJHkalTvx5c15ZRbVpVmiO/VZJAAAAAAAAAAAAAAAAAAAAAAAAABc4A+lUzEyY9gMcgAAAABJRU5ErkJggg==" alt="Placeholder Image" class="product-image" />-->
+
+      <!-- <img [src]="product.imageUrl" alt="Product Image" class="product-image" />  -->
+      <img
+        *ngIf="imageUrls[product.id]; else defaultImg"
+        [src]="imageUrls[product.id]"
+        alt="{{ product.name }}"
+        class="offer-image"
+      />
+
+      <ng-template #defaultImg>
+        <img
+          src="https://img.freepik.com/free-photo/blank-phone-screen-purple-background_53876-143196.jpg?uid=R87884697&semt=ais_hybrid"
+          alt="Image par défaut"
+          class="offer-image"
+        />
+      </ng-template>
+      <h3>{{ product.name }}</h3>
+      <p>{{ product.brand }}</p>
+      <p>{{ product.category }}</p>
       <p>{{ product.description }}</p>
       <span class="price">{{ product.price }} DHS</span>
-      <button class="btn-secondary" (click)="viewProduct(product.id)">Voir plus</button>
+      <button class="btn-secondary" (click)="viewProduct(product.id)">
+        Voir plus
+      </button>
     </div>
-    </div>
-  </section>
+  </div>
+</section>

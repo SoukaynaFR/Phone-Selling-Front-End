@@ -2,85 +2,113 @@
   <!-- Hero Section -->
   <section class="hero">
     <div class="hero-text">
-      <h1>Bienvenue sur <span>SmartBuy</span> votre site de vente de téléphones et accessoires</h1>
-      <p>Découvrez les meilleures offres et trouvez le téléphone idéal grâce à notre recommandation IA.</p>
-      <button class="btn-primary">Commencer</button>
+      <h1>
+        Bienvenue sur <span>SmartBuy</span> votre site de vente de téléphones et
+        accessoires
+      </h1>
+      <p>
+        Découvrez les meilleures offres et trouvez le téléphone idéal grâce à
+        notre recommandation IA.
+      </p>
+      <button (click)="goToAdmin()" class="btn-primary">Commencer</button>
     </div>
   </section>
- <!-- Best Offers Carousel -->
- <section class="best-offers">
-  <h2>Nos meilleures offres</h2>
-  <app-best-offers></app-best-offers>
+  <!-- Best Offers Carousel -->
+  <section class="best-offers">
+    <h2>Nos meilleures offres</h2>
+    <app-best-offers></app-best-offers>
+  </section>
 
-</section>
+  <!-- Product Filtering and Catalog -->
+  <section class="product-catalog">
+    <h2>Catalogue de téléphones et accessoires</h2>
+    <div class="filters">
+      <label>Catégorie :</label>
 
-<!-- Product Filtering and Catalog -->
-<section class="product-catalog">
-  <h2>Catalogue de téléphones et accessoires</h2>
-  <div class="filters">
-    <label>Catégorie :</label>
-
-    
-    <select [(ngModel)]="selectedCategory" (change)="filterProducts()">
-      <option value="">Toutes</option>
-      <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
-    </select>
-    <label>Prix :</label>
-    <input type="range" min="0" max="2000" [(ngModel)]="priceRange" (input)="filterProducts()" />
-    <span>{{ priceRange }} DHS</span>
-  </div>
-
-  <div class="catalog-list">
-    <div class="catalog-item" *ngFor="let product of filteredProducts">
-    
-
-      <img [src]="product.imageUrl" alt="Product Image" class="product-image" /> 
-      <h3>{{ product.name }}</h3>
-      <p>{{ product.brand }}</p>
-    <p>{{ product.description }}</p>
-    <div class="add-to-cart">
-      <button class="btn-secondary" (click)="viewProduct(product.id)">Voir plus</button>
-      <!-- Bouton "Ajouter au panier" avec icône -->
-      <button class="btn-primary" (click)="selectProduct(product); addToCart()">
-        <i class="fas fa-cart-plus"></i>
-      </button>
-      
+      <select [(ngModel)]="selectedCategory" (change)="filterProducts()">
+        <option value="">Toutes</option>
+        <option *ngFor="let category of categories" [value]="category">
+          {{ category }}
+        </option>
+      </select>
+      <label>Prix :</label>
+      <input
+        type="range"
+        min="0"
+        max="2000"
+        [(ngModel)]="priceRange"
+        (input)="filterProducts()"
+      />
+      <span>{{ priceRange }} DHS</span>
     </div>
-  </div>
-  </div>
-</section>
 
+    <div class="catalog-list">
+      <div class="catalog-item" *ngFor="let product of filteredProducts">
+        <!-- <img [src]="product.imageUrl" alt="Product Image" class="product-image" />  -->
+        <img
+          *ngIf="imageUrls[product.id]; else defaultImg"
+          [src]="imageUrls[product.id]"
+          alt="{{ product.name }}"
+          class="offer-image"
+        />
+
+        <ng-template #defaultImg>
+          <img
+            src="https://img.freepik.com/free-photo/blank-phone-screen-purple-background_53876-143196.jpg?uid=R87884697&semt=ais_hybrid"
+            alt="Image par défaut"
+            class="offer-image"
+          />
+        </ng-template>
+        <h3>{{ product.name }}</h3>
+        <p>{{ product.brand }}</p>
+        <p>{{ product.description }}</p>
+        <div class="add-to-cart">
+          <button class="btn-secondary" (click)="viewProduct(product.id)">
+            Voir plus
+          </button>
+          <!-- Bouton "Ajouter au panier" avec icône -->
+          <button
+            class="btn-primary"
+            (click)="selectProduct(product); addToCart()"
+          >
+            <i class="fas fa-cart-plus"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- AI Recommendation Section -->
   <section class="ai-recommendation">
     <h2>Besoin d'aide pour choisir ?</h2>
-    <p>Répondez à quelques questions et laissez notre IA vous recommander le téléphone parfait pour vous.</p>
+    <p>
+      Répondez à quelques questions et laissez notre IA vous recommander le
+      téléphone parfait pour vous.
+    </p>
     <button class="btn-primary">Commencer avec IA</button>
   </section>
 
-
   <section class="services">
     <div class="service">
-        <div class="icon">
-            <i class="fas fa-shipping-fast"></i>
-        </div>
-        <h3>LIVRAISON RAPIDE ET GRATUITE</h3>
-        <p>Livraison gratuite pour toutes les commandes!</p>
+      <div class="icon">
+        <i class="fas fa-shipping-fast"></i>
+      </div>
+      <h3>LIVRAISON RAPIDE ET GRATUITE</h3>
+      <p>Livraison gratuite pour toutes les commandes!</p>
     </div>
     <div class="service">
-        <div class="icon">
-            <i class="fas fa-headset"></i>
-        </div>
-        <h3>SERVICE CLIENT 24/7</h3>
-        <p>Assistance client disponible 24h/24 et 7j/7</p>
+      <div class="icon">
+        <i class="fas fa-headset"></i>
+      </div>
+      <h3>SERVICE CLIENT 24/7</h3>
+      <p>Assistance client disponible 24h/24 et 7j/7</p>
     </div>
     <div class="service">
-        <div class="icon">
-            <i class="fas fa-check-circle"></i>
-        </div>
-        <h3>GARANTIE REMBOURSEMENT</h3>
-        <p>Nous remboursons sous 30 jours</p>
+      <div class="icon">
+        <i class="fas fa-check-circle"></i>
+      </div>
+      <h3>GARANTIE REMBOURSEMENT</h3>
+      <p>Nous remboursons sous 30 jours</p>
     </div>
-</section>
-
+  </section>
 </div>
